@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ГЭС-2 — рабочие инструменты проекта</title>
+<style>
+  :root {
+    --font-text: "Diagramatika Text", "Diagramatika Text Fallback", "Helvetica Neue", Arial, sans-serif;
+    --font-display: "Diagramatika Display", "Diagramatika Display Fallback", "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+    --tracking-display: 0.02em;
+
+    --text-base: 16px;
+    --text-lg: 18px;
+    --display-md: 24px;
+    --display-lg: 40px;
+
+    --space-1: 6px;
+    --space-2: 12px;
+    --space-4: 20px;
+    --space-6: 32px;
+    --space-8: 48px;
+
+    --color-ink: #000000;
+    --color-paper: #FFFFFF;
+    --color-muted: #6B6862;
+    --color-hairline-bg: #F1EFE9;
+    --border-hairline: 0.5px solid var(--color-ink);
+    --radius: 0px;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--color-paper); color:var(--color-ink);
+    font-family:var(--font-text); font-size:var(--text-base); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:760px; margin:0 auto; padding: var(--space-8) var(--space-4) var(--space-8);}
+
+  .eyebrow{
+    font-family:var(--font-text); font-size:13px; text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--color-muted);
+  }
+  h1{
+    font-family:var(--font-display); font-weight:400; letter-spacing:var(--tracking-display);
+    font-size:var(--display-lg); margin: var(--space-1) 0 0; text-wrap:balance;
+  }
+  .dek{color:var(--color-ink); margin: var(--space-2) 0 0; max-width:60ch;}
+
+  .tools{margin-top: var(--space-8); border-top: var(--border-hairline);}
+  .tool{
+    display:block; padding: var(--space-6) 0; border-bottom: var(--border-hairline);
+    text-decoration:none; color:inherit;
+  }
+  .tool:hover .tool-title{text-decoration:underline;}
+  .tool-eyebrow{
+    font-family:var(--font-mono); font-size:11px; color:var(--color-muted);
+    text-transform:uppercase; letter-spacing:0.04em;
+  }
+  .tool-title{
+    font-family:var(--font-display); font-weight:400; letter-spacing:var(--tracking-display);
+    font-size:var(--display-md); margin: var(--space-1) 0 var(--space-1);
+  }
+  .tool-desc{color:var(--color-muted); max-width:58ch;}
+  .tool-arrow{font-family:var(--font-mono); font-size:13px; color:var(--color-muted);}
+
+  footer{
+    margin-top: var(--space-8); padding-top: var(--space-4); border-top: var(--border-hairline);
+    font-family:var(--font-mono); font-size:12px; color:var(--color-muted);
+  }
+  footer a{color:inherit;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="eyebrow">Дом культуры «ГЭС-2» · рабочие инструменты проекта</div>
+  <h1>Инструменты</h1>
+  <p class="dek">Три автономных HTML-инструмента, собранных для служб ГЭС-2. Каждый — отдельный файл со всеми данными внутри, без сервера и внешних зависимостей.</p>
+
+  <div class="tools">
+    <a class="tool" href="knowledge-base/index.html">
+      <div class="tool-eyebrow">Служба по работе с посетителями</div>
+      <div class="tool-title">База знаний <span class="tool-arrow">→</span></div>
+      <div class="tool-desc">Поиск и фильтрация по 84 готовым ответам на вопросы посетителей — по категориям, с пометкой вопросов, которые ещё требуют уточнения.</div>
+    </a>
+
+    <a class="tool" href="event-management/index.html">
+      <div class="tool-eyebrow">Управление событиями</div>
+      <div class="tool-title">Реестр событий <span class="tool-arrow">→</span></div>
+      <div class="tool-desc">Просмотр и фильтрация реестра событий: категория, трек сложности, текущий этап (пересчитывается на лету), ответственные отделы по RACI.</div>
+    </a>
+
+    <a class="tool" href="surveys/visitor-survey-basic.html">
+      <div class="tool-eyebrow">Клиентский опыт</div>
+      <div class="tool-title">Опрос посетителя <span class="tool-arrow">→</span></div>
+      <div class="tool-desc">Короткая анкета на 5 вопросов: CSAT, Customer Effort Score, NPS и два открытых вопроса.</div>
+    </a>
+  </div>
+
+  <footer>
+    Исходники и документация проекта — <a href="https://github.com/skrasin/ges-2">github.com/skrasin/ges-2</a>
+  </footer>
+
+</div>
+</body>
+</html>
