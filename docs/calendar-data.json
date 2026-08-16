@@ -1,0 +1,722 @@
+[
+  {
+    "id": 2883,
+    "type": "event",
+    "subtype": "Программа",
+    "title": "Курс подготовки глухих музейных специалистов",
+    "path": "training-course-for-deaf-museum-professionals",
+    "starts": "2025-10-01T00:00:00+03:00",
+    "ends": "2026-08-31T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3215,
+    "type": "event",
+    "subtype": "Медиаторский тур",
+    "title": "Хадзар мечты",
+    "path": "khadzar-of-dreams-mediated-tour",
+    "starts": "2026-04-23T00:00:00+03:00",
+    "ends": "2026-09-13T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3133,
+    "type": "project",
+    "subtype": "Выставка",
+    "title": "Хадзар мечты",
+    "path": "projects/khadzar-of-dreams",
+    "starts": "2026-04-23T00:00:00+03:00",
+    "ends": "2026-09-13T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3248,
+    "type": "event",
+    "subtype": "Игра",
+    "title": "Лес, полный красот и чудес",
+    "path": "forest-full-of-beauty-and-wonders",
+    "starts": "2026-05-09T00:00:00+03:00",
+    "ends": "2026-08-29T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3132,
+    "type": "project",
+    "subtype": "Выставка",
+    "title": "Москва — Ханой. Ландшафты оптимизма",
+    "path": "projects/moscow-hanoi-landscapes-of-optimism",
+    "starts": "2026-05-21T00:00:00+03:00",
+    "ends": "2026-09-20T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3257,
+    "type": "event",
+    "subtype": "Медиаторский тур",
+    "title": "Москва — Ханой. Ландшафты оптимизма",
+    "path": "moscow-hanoi-landscapes-of-optimism-mediated-tour",
+    "starts": "2026-05-21T00:00:00+03:00",
+    "ends": "2026-09-20T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 1474,
+    "type": "event",
+    "subtype": "Игра",
+    "title": "Игры на лужайке",
+    "path": "lawn-games",
+    "starts": "2026-05-30T00:00:00+03:00",
+    "ends": "2026-10-01T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 1446,
+    "type": "event",
+    "subtype": "Лаборатория",
+    "title": "Фотооснова. Лаборатория печатных практик для художников",
+    "path": "photo-basis-printmaking-practices-lab-for-artists",
+    "starts": "2026-06-01T00:00:00+03:00",
+    "ends": "2026-10-30T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3284,
+    "type": "event",
+    "subtype": "Занятие ",
+    "title": "Как тебе тут?",
+    "path": "how-do-you-like-it-here",
+    "starts": "2026-06-02T00:00:00+03:00",
+    "ends": "2026-09-20T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 2860,
+    "type": "project",
+    "subtype": "Выставка",
+    "title": "Весь мир здесь обретает дом: по следам Тагора",
+    "path": "projects/the-world-in-a-single-nest-following-the-way-of-tagore",
+    "starts": "2026-06-25T00:00:00+03:00",
+    "ends": "2026-08-23T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3049,
+    "type": "event",
+    "subtype": "Занятие ",
+    "title": "В тени баньяна",
+    "path": "in-the-shade-of-the-banyan-tree",
+    "starts": "2026-06-25T22:00:00+03:00",
+    "ends": "2026-08-23T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3312,
+    "type": "event",
+    "subtype": "Медиаторский тур",
+    "title": "Весь мир здесь обретает дом: по следам Тагора",
+    "path": "the-world-in-a-single-nest-following-the-way-of-tagore-mediated-tour",
+    "starts": "2026-06-25T23:00:00+03:00",
+    "ends": "2026-08-23T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3315,
+    "type": "event",
+    "subtype": "Танцевальное занятие",
+    "title": "Роща чувств. Новое звучание",
+    "path": "forest-of-feelings-the-new-sound",
+    "starts": "2026-06-28T00:00:00+03:00",
+    "ends": "2026-08-30T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3331,
+    "type": "project",
+    "subtype": "Инсталляция",
+    "title": "Палисадник-2026",
+    "path": "projects/front-garden-2026",
+    "starts": "2026-07-01T00:00:00+03:00",
+    "ends": "2026-09-30T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3281,
+    "type": "event",
+    "subtype": "Игра",
+    "title": "Как стать меньше мухи",
+    "path": "how-to-become-smaller-than-a-fly",
+    "starts": "2026-07-02T11:30:00+03:00",
+    "ends": "2026-08-20T14:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 2678,
+    "type": "event",
+    "subtype": "Медиаторский тур",
+    "title": "Вне стен: прогулка по Музеону",
+    "path": "outside-the-walls-a-walk-in-muzeon-park",
+    "starts": "2026-07-07T00:00:00+03:00",
+    "ends": "2026-09-28T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3327,
+    "type": "event",
+    "subtype": "Медиаторский тур",
+    "title": "К сердцу земли. Учиться у природы",
+    "path": "to-the-heart-of-the-earth-learning-from-nature",
+    "starts": "2026-07-12T00:00:00+03:00",
+    "ends": "2026-08-23T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3338,
+    "type": "event",
+    "subtype": "Открытый набор",
+    "title": "Программа для живописцев и скульпторов. Открытый набор на второй сезон",
+    "path": "programme-for-painters-and-sculptors-open-call-for-season-2",
+    "starts": "2026-07-13T00:00:00+03:00",
+    "ends": "2026-08-31T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3341,
+    "type": "event",
+    "subtype": "Практика",
+    "title": "Йога в Роще",
+    "path": "yoga-in-the-forest",
+    "starts": "2026-07-18T00:00:00+03:00",
+    "ends": "2026-08-26T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3339,
+    "type": "event",
+    "subtype": "Публичная программа",
+    "title": "За контурами моды. Летняя программа медиации",
+    "path": "beyond-fashion-contours-mediation-summer-programme",
+    "starts": "2026-07-26T00:00:00+03:00",
+    "ends": "2026-08-26T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3376,
+    "type": "event",
+    "subtype": "Открытый набор",
+    "title": "Открытый факультет медиации. Владивосток/Калининград. Открытый набор",
+    "path": "open-faculty-of-mediation-vladivostok-kaliningrad-open-call",
+    "starts": "2026-07-29T00:00:00+03:00",
+    "ends": "2026-08-11T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3362,
+    "type": "event",
+    "subtype": "Серия мастер-классов",
+    "title": "След и ритм",
+    "path": "trace-and-rhythm",
+    "starts": "2026-08-04T00:00:00+03:00",
+    "ends": "2026-08-13T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3349,
+    "type": "project",
+    "subtype": "Кинопрограмма",
+    "title": "Что с лицом?",
+    "path": "projects/what-s-with-the-face",
+    "starts": "2026-08-06T00:00:00+03:00",
+    "ends": "2026-08-19T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3375,
+    "type": "event",
+    "subtype": "Книжный клуб",
+    "title": "Другой Тагор: творческая вселенная от экспериментов в графике до музыкальной революции",
+    "path": "the-other-tagore-the-creative-universe",
+    "starts": "2026-08-11T00:00:00+03:00",
+    "ends": "2026-08-18T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3354,
+    "type": "event",
+    "subtype": "Кинопоказ",
+    "title": "Десять",
+    "path": "ten",
+    "starts": "2026-08-12T19:30:00+03:00",
+    "ends": "2026-08-12T21:15:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 1813,
+    "type": "event",
+    "subtype": "Кинопоказ",
+    "title": "Шепот сердца",
+    "path": "whisper-of-the-heart",
+    "starts": "2026-08-13T00:00:00+03:00",
+    "ends": null,
+    "paid": false
+  },
+  {
+    "id": 2138,
+    "type": "event",
+    "subtype": "Кинопоказ",
+    "title": "Комиссар",
+    "path": "commissar",
+    "starts": "2026-08-13T19:30:00+03:00",
+    "ends": "2026-08-13T21:35:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3382,
+    "type": "event",
+    "subtype": "Медиаторский тур",
+    "title": "Медиация с Румой Чоудхури",
+    "path": "mediation-with-ruma-choudhury",
+    "starts": "2026-08-14T00:00:00+03:00",
+    "ends": "2026-08-15T00:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3393,
+    "type": "event",
+    "subtype": "Кинопоказ",
+    "title": "Самурай и пленник",
+    "path": "the-samurai-and-the-prisoner",
+    "starts": "2026-08-14T16:00:00+03:00",
+    "ends": null,
+    "paid": false
+  },
+  {
+    "id": 3355,
+    "type": "event",
+    "subtype": "Кинопоказ",
+    "title": "Где приземлиться",
+    "path": "where-to-land",
+    "starts": "2026-08-14T19:30:00+03:00",
+    "ends": "2026-08-14T20:55:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3371,
+    "type": "event",
+    "subtype": "Беседа",
+    "title": "Слово и образ: как читать индийских авторов сегодня",
+    "path": "word-and-image-how-to-read-indian-authors-today",
+    "starts": "2026-08-15T15:00:00+03:00",
+    "ends": "2026-08-15T16:30:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3356,
+    "type": "event",
+    "subtype": "Кинопоказ и обсуждение",
+    "title": "Генеральная линия",
+    "path": "the-general-line",
+    "starts": "2026-08-15T19:00:00+03:00",
+    "ends": "2026-08-15T22:30:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3379,
+    "type": "event",
+    "subtype": "Публичная программа",
+    "title": "Полдень шахмат",
+    "path": "afternoon-of-chess",
+    "starts": "2026-08-16T12:00:00+03:00",
+    "ends": "2026-08-16T17:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3366,
+    "type": "event",
+    "subtype": "Мастер-класс",
+    "title": "Бумага, созданная рекой",
+    "path": "paper-created-by-the-river",
+    "starts": "2026-08-16T12:00:00+03:00",
+    "ends": "2026-08-16T17:15:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3357,
+    "type": "event",
+    "subtype": "Кинопоказ",
+    "title": "Девушки",
+    "path": "the-girls",
+    "starts": "2026-08-16T15:00:00+03:00",
+    "ends": "2026-08-16T17:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3358,
+    "type": "event",
+    "subtype": "Кинопоказ",
+    "title": "Красный гаолян",
+    "path": "red-sorghum",
+    "starts": "2026-08-16T19:00:00+03:00",
+    "ends": "2026-08-16T20:45:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 2769,
+    "type": "event",
+    "subtype": "Кинопоказ",
+    "title": "Тема",
+    "path": "the-theme",
+    "starts": "2026-08-18T19:30:00+03:00",
+    "ends": "2026-08-18T21:25:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3359,
+    "type": "event",
+    "subtype": "Кинопоказ и обсуждение",
+    "title": "Земля",
+    "path": "earth-film",
+    "starts": "2026-08-19T19:30:00+03:00",
+    "ends": "2026-08-19T22:05:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3381,
+    "type": "event",
+    "subtype": "Мастер-класс",
+    "title": "Небывальщина",
+    "path": "imaginary-creatures",
+    "starts": "2026-08-23T00:00:00+03:00",
+    "ends": "2026-08-30T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3391,
+    "type": "event",
+    "subtype": "Публичная программа",
+    "title": "ГЭС-2 Саундсистем 4. Mind*",
+    "path": "ges-2-soundsystem-4-mind",
+    "starts": "2026-08-24T00:00:00+03:00",
+    "ends": "2026-08-26T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3389,
+    "type": "project",
+    "subtype": "Публичная программа",
+    "title": "ГЭС-2 Саундсистем 4",
+    "path": "projects/ges-2-soundsystem-4",
+    "starts": "2026-08-24T00:00:00+03:00",
+    "ends": "2026-08-30T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3390,
+    "type": "event",
+    "subtype": "Публичная программа",
+    "title": "ГЭС-2 Саундсистем 4. Body*",
+    "path": "ges-2-soundsystem-4-body",
+    "starts": "2026-08-24T00:00:00+03:00",
+    "ends": "2026-08-30T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3392,
+    "type": "event",
+    "subtype": "Публичная программа",
+    "title": "ГЭС-2 Саундсистем 4. Spirit*",
+    "path": "ges-2-soundsystem-4-spirit",
+    "starts": "2026-08-30T00:00:00+03:00",
+    "ends": "2026-08-30T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3369,
+    "type": "event",
+    "subtype": "Публичная программа",
+    "title": "Песни Палисадника",
+    "path": "songs-of-the-front-garden",
+    "starts": "2026-08-30T11:00:00+03:00",
+    "ends": "2026-08-30T22:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3285,
+    "type": "event",
+    "subtype": "Лаборатория",
+    "title": "Технический сценарий",
+    "path": "technical-script",
+    "starts": "2026-09-01T00:00:00+03:00",
+    "ends": "2026-12-10T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 2982,
+    "type": "event",
+    "subtype": "Игра",
+    "title": "Вагон пользы и еще тележка",
+    "path": "loads-of-benefits-and-a-cartload",
+    "starts": "2026-09-04T00:00:00+03:00",
+    "ends": "2026-11-27T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 1526,
+    "type": "event",
+    "subtype": "Игра",
+    "title": "Субботние игры на Платформах",
+    "path": "saturday-games",
+    "starts": "2026-09-05T00:00:00+03:00",
+    "ends": "2026-11-28T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3386,
+    "type": "event",
+    "subtype": "Мастер-класс",
+    "title": "1=52",
+    "path": "1-52",
+    "starts": "2026-09-06T00:00:00+03:00",
+    "ends": "2026-09-27T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3372,
+    "type": "project",
+    "subtype": "Музыкальная программа",
+    "title": "Гала. Пять лет музыки",
+    "path": "projects/gala-five-years-of-music",
+    "starts": "2026-09-07T00:00:00+03:00",
+    "ends": "2026-12-16T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3373,
+    "type": "event",
+    "subtype": "Концерт",
+    "title": "Минусболеро",
+    "path": "minusbolero",
+    "starts": "2026-09-07T20:00:00+03:00",
+    "ends": "2026-09-07T21:30:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 2947,
+    "type": "event",
+    "subtype": "Серия мастер-классов",
+    "title": "Принты и чудики",
+    "path": "prints-and-oddballs",
+    "starts": "2026-09-09T00:00:00+03:00",
+    "ends": "2026-09-23T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 2992,
+    "type": "project",
+    "subtype": "Инсталляция",
+    "title": "Божественная комедия",
+    "path": "projects/divine-comedy",
+    "starts": "2026-09-10T00:00:00+03:00",
+    "ends": null,
+    "paid": false
+  },
+  {
+    "id": 2568,
+    "type": "event",
+    "subtype": "Игра",
+    "title": "Ба-бах!",
+    "path": "boom-bach",
+    "starts": "2026-09-10T10:00:00+03:00",
+    "ends": "2026-11-12T19:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3336,
+    "type": "event",
+    "subtype": "Игра",
+    "title": "Рогатые и хвостатые",
+    "path": "horned-and-tailed",
+    "starts": "2026-09-10T11:15:00+03:00",
+    "ends": "2026-11-12T12:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3069,
+    "type": "event",
+    "subtype": "Публичная программа",
+    "title": "Йога выходного дня",
+    "path": "weekend-yoga",
+    "starts": "2026-09-12T00:00:00+03:00",
+    "ends": "2026-11-28T23:00:00+03:00",
+    "paid": true
+  },
+  {
+    "id": 3044,
+    "type": "event",
+    "subtype": "Лаборатория",
+    "title": "Домашний театр",
+    "path": "home-theatre",
+    "starts": "2026-09-12T00:00:00+03:00",
+    "ends": "2026-11-29T18:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3342,
+    "type": "event",
+    "subtype": "Игра",
+    "title": "Вижу смыслы в каждой травке",
+    "path": "i-see-meaning-in-every-blade-of-grass",
+    "starts": "2026-09-12T00:00:00+03:00",
+    "ends": "2026-12-12T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 1180,
+    "type": "event",
+    "subtype": "Практика",
+    "title": "Семейная йога",
+    "path": "family-yoga",
+    "starts": "2026-09-13T00:00:00+03:00",
+    "ends": null,
+    "paid": false
+  },
+  {
+    "id": 3374,
+    "type": "event",
+    "subtype": "Концерт",
+    "title": "И все-таки она вертится",
+    "path": "and-yet-it-moves-2026",
+    "starts": "2026-09-14T20:00:00+03:00",
+    "ends": "2026-09-14T21:30:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3325,
+    "type": "event",
+    "subtype": "Мастерская ",
+    "title": "Город, который придумал я",
+    "path": "the-city-i-made-up",
+    "starts": "2026-09-16T00:00:00+03:00",
+    "ends": "2026-12-02T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3380,
+    "type": "project",
+    "subtype": "Кинопрограмма",
+    "title": "Фестиваль коллективных фильмов",
+    "path": "projects/festival-of-collective-films",
+    "starts": "2026-09-17T00:00:00+03:00",
+    "ends": "2026-10-01T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3384,
+    "type": "event",
+    "subtype": "Лаборатория",
+    "title": "Излучение голоса",
+    "path": "voice-radiation",
+    "starts": "2026-09-19T00:00:00+03:00",
+    "ends": "2026-11-21T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3383,
+    "type": "project",
+    "subtype": "Публичная программа",
+    "title": "В полный голос. Осень 2026",
+    "path": "projects/in-a-loud-voice-autumn-2026",
+    "starts": "2026-09-19T00:00:00+03:00",
+    "ends": "2026-12-07T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3045,
+    "type": "event",
+    "subtype": "Кружок",
+    "title": "А и Б сидели на трубе",
+    "path": "a-and-b-were-sitting-on-a-pipe",
+    "starts": "2026-09-22T00:00:00+03:00",
+    "ends": "2026-12-08T00:00:00+03:00",
+    "paid": true
+  },
+  {
+    "id": 3340,
+    "type": "event",
+    "subtype": "Игра",
+    "title": "Лесные человечки",
+    "path": "forest-people",
+    "starts": "2026-09-22T11:15:00+03:00",
+    "ends": "2026-12-08T13:30:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 2989,
+    "type": "event",
+    "subtype": "Кружок",
+    "title": "Как управлять хаосом?",
+    "path": "how-to-control-chaos",
+    "starts": "2026-09-23T00:00:00+03:00",
+    "ends": "2026-12-02T00:00:00+03:00",
+    "paid": true
+  },
+  {
+    "id": 3345,
+    "type": "event",
+    "subtype": "Мастер-класс",
+    "title": "Эффект бабочки",
+    "path": "butterfly-effect",
+    "starts": "2026-10-04T00:00:00+03:00",
+    "ends": "2026-10-25T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3387,
+    "type": "event",
+    "subtype": "Практика",
+    "title": "Йога смеха",
+    "path": "laughter-yoga",
+    "starts": "2026-10-08T00:00:00+03:00",
+    "ends": "2026-11-26T23:00:00+03:00",
+    "paid": true
+  },
+  {
+    "id": 3388,
+    "type": "event",
+    "subtype": "Мастер-класс",
+    "title": "Мастерская кикимор",
+    "path": "kikimoras-workshop",
+    "starts": "2026-10-11T12:00:00+03:00",
+    "ends": "2026-10-11T17:30:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3131,
+    "type": "project",
+    "subtype": "Выставка",
+    "title": "Натюрморт. Портрет. Пейзаж. После жанра",
+    "path": "projects/crisis-of-genre-still-life-portrait-landscape",
+    "starts": "2026-10-15T00:00:00+03:00",
+    "ends": "2027-04-25T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3385,
+    "type": "event",
+    "subtype": "Занятие ",
+    "title": "Ламповый Новый год",
+    "path": "analogue-new-year",
+    "starts": "2026-10-19T00:00:00+03:00",
+    "ends": "2026-12-07T23:00:00+03:00",
+    "paid": false
+  },
+  {
+    "id": 3397,
+    "type": "event",
+    "subtype": "Мастер-класс",
+    "title": "След в воздухе",
+    "path": "a-trace-in-the-air",
+    "starts": "2026-11-08T00:00:00+03:00",
+    "ends": "2026-11-29T23:00:00+03:00",
+    "paid": false
+  }
+]

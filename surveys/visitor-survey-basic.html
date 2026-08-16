@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ГЭС-2 — опрос посетителя</title>
+<!--
+  Источник контента: docs/ges2_visitor_survey_basic.docx
+  ("Базовый опрос посетителя" — сокращённая версия, 5 вопросов, без ветвления).
+
+  Соответствие полей формы вопросам из полного банка анкеты (по ID из docx):
+    q5  — Q1 в этой версии, CSAT, шкала 1–5, обязательный
+    q6  — Q2, Customer Effort Score, шкала 1–5, обязательный
+    q4  — Q3, NPS, шкала 0–10, обязательный
+    q12 — Q4, открытый текст, необязательный
+    q13 — Q5, открытый текст, необязательный
+  Имена input'ов оставлены как q4/q5/q6/q12/q13 намеренно — это ID вопросов
+  в полном банке анкеты (см. docx), а не порядковые номера на этой странице.
+  Так проще подключить бэкенд позже без переразметки.
+
+  ВАЖНО: вступительный и заключительный текст, а также подписи-якоря на
+  концах шкал (1/5 и 0/10) в docx не заданы — это моя редакционная добавка
+  для читаемости формы, сверьте с командой перед публикацией.
+
+  Форма сейчас работает только на клиенте (валидация + экран "спасибо").
+  Отправка данных никуда не подключена — перед использованием нужно
+  подставить реальный endpoint в комментарии "TODO: submit" ниже.
+-->
+<style>
+  /* ---- Токены ГЭС-2 (см. ../design-system/tokens.css) ---- */
+  :root {
+    /* "/ 1px" в конце — не опечатка: конвертирует длину в безразмерное
+       число, иначе следующие calc(scale * Npx) невалидны (length*length). */
+    --ges2-scale: calc(min(100vw, 1640px) / 1440 / 1px);
+  }
+  @media (max-width: 767px) {
+    :root { --ges2-scale: calc(100vw / 375 / 1px); }
+  }
+  :root {
+    --font-text: "Diagramatika Text", "Diagramatika Text Fallback", "Helvetica Neue", Arial, sans-serif;
+    --font-display: "Diagramatika Display", "Diagramatika Display Fallback", "Helvetica Neue", Arial, sans-serif;
+    --tracking-display: 0.02em;
+
+    --text-base: calc(var(--ges2-scale) * 16px);
+    --text-lg:   calc(var(--ges2-scale) * 18px);
+    --display-sm: calc(var(--ges2-scale) * 20px);
+    --display-md: calc(var(--ges2-scale) * 28px);
+    --display-lg: calc(var(--ges2-scale) * 40px);
+
+    --space-1: calc(var(--ges2-scale) * 5px);
+    --space-2: calc(var(--ges2-scale) * 10px);
+    --space-4: calc(var(--ges2-scale) * 20px);
+    --space-6: calc(var(--ges2-scale) * 30px);
+    --space-10: calc(var(--ges2-scale) * 50px);
+
+    --color-ink: #000000;
+    --color-paper: #FFFFFF;
+    --color-muted: #9CA3AF;
+    --color-hint: #C0C1C0;
+    --color-hairline-bg: #EEEEEE;
+    --color-error: #D30000;
+    --border-hairline: 0.5px solid var(--color-ink);
+    --radius: 0px;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{margin:0; padding:0;}
+  body{
+    background:var(--color-paper); color:var(--color-ink);
+    font-family:var(--font-text); font-size:var(--text-base); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:640px; margin:0 auto; padding: var(--space-6) var(--space-4) calc(var(--space-10) * 2);}
+
+  header.masthead{padding-bottom: var(--space-4); border-bottom: var(--border-hairline); margin-bottom: var(--space-6);}
+  .eyebrow{font-family:var(--font-text); font-size:var(--text-lg); text-transform:uppercase; letter-spacing:0.04em; color:var(--color-muted);}
+  h1{
+    font-family:var(--font-display); font-weight:400; letter-spacing:var(--tracking-display);
+    font-size:var(--display-lg); margin: var(--space-2) 0 0; text-wrap:balance;
+  }
+  .intro{font-size:var(--text-base); color:var(--color-ink); margin: var(--space-4) 0 0; max-width:56ch;}
+
+  fieldset{border:none; margin:0 0 var(--space-6); padding:0;}
+  .q-index{
+    font-family:var(--font-display); letter-spacing:var(--tracking-display);
+    font-size:var(--display-sm); color:var(--color-muted); display:block; margin-bottom: var(--space-1);
+  }
+  legend{
+    font-family:var(--font-text); font-size:var(--text-base); font-weight:400;
+    color:var(--color-ink); padding:0; margin:0 0 var(--space-4); float:none; width:100%;
+  }
+  .required-mark{color:var(--color-error);}
+  .optional-tag{
+    font-family:var(--font-text); font-size:12px; color:var(--color-muted);
+    text-transform:uppercase; letter-spacing:0.04em; margin-left: var(--space-2);
+  }
+
+  /* ---- Шкала: без скругления, как во всей системе ГЭС-2 ----
+     Высота фиксированная и общая для всех строк шкалы (не aspect-ratio:1),
+     иначе кнопки 5-балльной шкалы (Q1/Q2) становятся квадратами по своей,
+     более широкой, ширине и получаются заметно выше, чем узкие квадраты
+     11-балльной шкалы (Q3) — ряды визуально не совпадают по высоте. */
+  .scale{display:flex; gap: var(--space-1); flex-wrap:nowrap;}
+  .scale.scale-11 .scale-opt{min-width:0;}
+  .scale-opt{flex:1 1 0; position:relative;}
+  .scale-opt input{
+    position:absolute; opacity:0; width:100%; height:100%; margin:0; cursor:pointer;
+  }
+  .scale-opt label{
+    display:flex; align-items:center; justify-content:center;
+    height: calc(var(--ges2-scale) * 26px); width:100%;
+    border: var(--border-hairline); border-radius:var(--radius);
+    font-family:var(--font-mono, monospace), var(--font-text);
+    font-size: calc(var(--text-base) * 0.9);
+    color:var(--color-ink); background:var(--color-paper);
+    cursor:pointer; user-select:none;
+    transition:background 0.1s ease, color 0.1s ease;
+  }
+  .scale-opt input:checked + label{
+    background:var(--color-ink); color:var(--color-paper);
+  }
+  .scale-opt input:focus-visible + label{
+    outline:2px solid var(--color-ink); outline-offset:2px;
+  }
+  .scale-anchors{
+    display:flex; justify-content:space-between; margin-top: var(--space-2);
+    font-size:12px; color:var(--color-muted);
+  }
+  .scale-anchors span:last-child{text-align:right;}
+
+  textarea{
+    width:100%; font-family:var(--font-text); font-size:var(--text-base); color:var(--color-ink);
+    border: var(--border-hairline); border-radius:var(--radius); background:var(--color-paper);
+    padding: var(--space-2); resize:vertical; min-height: calc(var(--space-10) * 1.6);
+  }
+  textarea::placeholder{color:var(--color-hint);}
+  textarea:focus-visible{outline:2px solid var(--color-ink); outline-offset:2px;}
+
+  .error-text{
+    display:none; color:var(--color-error); font-size:13px; margin-top: var(--space-2);
+  }
+  fieldset.invalid .error-text{display:block;}
+  fieldset.invalid .scale-opt label{border-color:var(--color-error);}
+
+  .submit-row{border-top: var(--border-hairline); padding-top: var(--space-6); margin-top: var(--space-10);}
+  button[type="submit"]{
+    font-family:var(--font-text); font-size:var(--text-base); color:var(--color-paper);
+    background:var(--color-ink); border: var(--border-hairline); border-radius:var(--radius);
+    padding: var(--space-2) var(--space-6); cursor:pointer; width:100%;
+  }
+  button[type="submit"]:hover{opacity:0.85;}
+  button[type="submit"]:focus-visible{outline:2px solid var(--color-ink); outline-offset:3px;}
+
+  .privacy-note{font-size:12px; color:var(--color-muted); margin-top: var(--space-4); text-align:center;}
+
+  /* ---- Экран благодарности ---- */
+  #thankyou{display:none; text-align:center; padding: calc(var(--space-10) * 2) 0;}
+  #thankyou h1{font-size:var(--display-lg);}
+  #thankyou p{color:var(--color-muted); margin-top: var(--space-4);}
+  body.submitted #survey-form{display:none;}
+  body.submitted #thankyou{display:block;}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="masthead">
+    <div class="eyebrow">Дом культуры «ГЭС-2»</div>
+    <h1>Как прошёл ваш визит?</h1>
+    <p class="intro">Пара вопросов о сегодняшнем визите — это займёт около минуты и поможет нам делать ГЭС-2 лучше.</p>
+  </header>
+
+  <form id="survey-form" novalidate>
+
+    <fieldset data-required="true">
+      <legend><span class="q-index">01</span>Насколько вы в целом довольны сегодняшним визитом?<span class="required-mark"> *</span></legend>
+      <div class="scale scale-5" role="radiogroup" aria-label="Оценка от 1 до 5">
+        <div class="scale-opt"><input type="radio" name="q5" id="q5-1" value="1" required><label for="q5-1">1</label></div>
+        <div class="scale-opt"><input type="radio" name="q5" id="q5-2" value="2"><label for="q5-2">2</label></div>
+        <div class="scale-opt"><input type="radio" name="q5" id="q5-3" value="3"><label for="q5-3">3</label></div>
+        <div class="scale-opt"><input type="radio" name="q5" id="q5-4" value="4"><label for="q5-4">4</label></div>
+        <div class="scale-opt"><input type="radio" name="q5" id="q5-5" value="5"><label for="q5-5">5</label></div>
+      </div>
+      <div class="scale-anchors"><span>Совсем не доволен</span><span>Полностью доволен</span></div>
+      <div class="error-text">Выберите оценку от 1 до 5.</div>
+    </fieldset>
+
+    <fieldset data-required="true">
+      <legend><span class="q-index">02</span>Насколько легко вам было взаимодействовать с сотрудниками ГЭС-2 сегодня?<span class="required-mark"> *</span></legend>
+      <div class="scale scale-5" role="radiogroup" aria-label="Оценка от 1 до 5">
+        <div class="scale-opt"><input type="radio" name="q6" id="q6-1" value="1" required><label for="q6-1">1</label></div>
+        <div class="scale-opt"><input type="radio" name="q6" id="q6-2" value="2"><label for="q6-2">2</label></div>
+        <div class="scale-opt"><input type="radio" name="q6" id="q6-3" value="3"><label for="q6-3">3</label></div>
+        <div class="scale-opt"><input type="radio" name="q6" id="q6-4" value="4"><label for="q6-4">4</label></div>
+        <div class="scale-opt"><input type="radio" name="q6" id="q6-5" value="5"><label for="q6-5">5</label></div>
+      </div>
+      <div class="scale-anchors"><span>Очень сложно</span><span>Очень легко</span></div>
+      <div class="error-text">Выберите оценку от 1 до 5.</div>
+    </fieldset>
+
+    <fieldset data-required="true">
+      <legend><span class="q-index">03</span>Насколько вероятно, что вы порекомендуете ГЭС-2 друзьям или коллегам?<span class="required-mark"> *</span></legend>
+      <div class="scale scale-11" role="radiogroup" aria-label="Оценка от 0 до 10">
+        <div class="scale-opt"><input type="radio" name="q4" id="q4-0" value="0" required><label for="q4-0">0</label></div>
+        <div class="scale-opt"><input type="radio" name="q4" id="q4-1" value="1"><label for="q4-1">1</label></div>
+        <div class="scale-opt"><input type="radio" name="q4" id="q4-2" value="2"><label for="q4-2">2</label></div>
+        <div class="scale-opt"><input type="radio" name="q4" id="q4-3" value="3"><label for="q4-3">3</label></div>
+        <div class="scale-opt"><input type="radio" name="q4" id="q4-4" value="4"><label for="q4-4">4</label></div>
+        <div class="scale-opt"><input type="radio" name="q4" id="q4-5" value="5"><label for="q4-5">5</label></div>
+        <div class="scale-opt"><input type="radio" name="q4" id="q4-6" value="6"><label for="q4-6">6</label></div>
+        <div class="scale-opt"><input type="radio" name="q4" id="q4-7" value="7"><label for="q4-7">7</label></div>
+        <div class="scale-opt"><input type="radio" name="q4" id="q4-8" value="8"><label for="q4-8">8</label></div>
+        <div class="scale-opt"><input type="radio" name="q4" id="q4-9" value="9"><label for="q4-9">9</label></div>
+        <div class="scale-opt"><input type="radio" name="q4" id="q4-10" value="10"><label for="q4-10">10</label></div>
+      </div>
+      <div class="scale-anchors"><span>Совсем не вероятно</span><span>Очень вероятно</span></div>
+      <div class="error-text">Выберите оценку от 0 до 10.</div>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="q-index">04</span>Что вам понравилось больше всего?<span class="optional-tag">Необязательно</span></legend>
+      <textarea name="q12" id="q12" placeholder="Ваш ответ"></textarea>
+    </fieldset>
+
+    <fieldset>
+      <legend><span class="q-index">05</span>Что стоит улучшить?<span class="optional-tag">Необязательно</span></legend>
+      <textarea name="q13" id="q13" placeholder="Ваш ответ"></textarea>
+    </fieldset>
+
+    <!-- Служебные поля: заполняются автоматически, не показываются посетителю.
+         submitted_at — время отправки, для baseline и трекинга динамики.
+         visit_id — идентификатор визита (ID билета/брони) из ссылки QR-кода,
+         нужен для сегментации по потоку (музей/концерт/мастерская) на этапе
+         анализа, см. docx. Если параметр ?visit= в ссылке не передан — поле
+         останется пустым, это ожидаемо для общих (не персонализированных) ссылок. -->
+    <input type="hidden" name="submitted_at" id="submitted_at">
+    <input type="hidden" name="visit_id" id="visit_id">
+
+    <div class="submit-row">
+      <button type="submit">Отправить</button>
+      <p class="privacy-note">Ответы анонимны и используются только для улучшения работы ГЭС-2.</p>
+    </div>
+  </form>
+
+  <div id="thankyou">
+    <div class="eyebrow">Дом культуры «ГЭС-2»</div>
+    <h1>Спасибо!</h1>
+    <p>Ваш ответ поможет нам стать лучше. До встречи в ГЭС-2.</p>
+  </div>
+
+</div>
+
+<script>
+  (function () {
+    var params = new URLSearchParams(window.location.search);
+    var visit = params.get('visit');
+    if (visit) document.getElementById('visit_id').value = visit;
+
+    var form = document.getElementById('survey-form');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      var valid = true;
+      form.querySelectorAll('fieldset[data-required="true"]').forEach(function (fs) {
+        var checked = fs.querySelector('input[type="radio"]:checked');
+        fs.classList.toggle('invalid', !checked);
+        if (!checked) valid = false;
+      });
+      if (!valid) {
+        form.querySelector('fieldset.invalid').scrollIntoView({behavior: 'smooth', block: 'center'});
+        return;
+      }
+
+      document.getElementById('submitted_at').value = new Date().toISOString();
+
+      var data = Object.fromEntries(new FormData(form).entries());
+
+      // TODO: submit — заменить на реальную отправку, когда определится
+      // бэкенд (например fetch('/api/survey', {method:'POST', body: JSON.stringify(data)})
+      // или интеграция с внутренней аналитикой ГЭС-2). Сейчас данные никуда
+      // не уходят, только логируются в консоль для отладки вёрстки.
+      console.log('ges2 survey submit (not wired to a backend yet):', data);
+
+      document.body.classList.add('submitted');
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    });
+  })();
+</script>
+</body>
+</html>

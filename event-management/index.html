@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ГЭС-2 — реестр событий</title>
+<!--
+  Автономный файл: данные, стили и логика встроены целиком, внешних
+  запросов и зависимостей нет.
+
+  ЭТО СГЕНЕРИРОВАННЫЙ ФАЙЛ. Не редактируйте его напрямую — правки потеряются
+  при следующей сборке. Источник:
+    docs/ges2_event_pm_template.xlsx        — исходные данные (Excel)
+    event-management/template.html          — этот шаблон
+    event-management/build_registry.py      — сборщик
+    event-management/registry-data.json     — извлечённые данные (побочный
+                                               артефакт сборки, для переиспользования)
+
+  Обновить реестр: отредактируйте .xlsx, затем
+    python3 event-management/build_registry.py
+
+  Это ТОЛЬКО ПРОСМОТР: поиск и фильтрация, без редактирования полей —
+  так и было запрошено. Правки вносятся в исходный .xlsx.
+
+  "Текущий этап" в исходном файле — статичная подсказка на дату сборки
+  (09.08.2026), не формула. Здесь он ПЕРЕСЧИТЫВАЕТСЯ на лету по реальной
+  дате устройства посетителя (см. computeStage ниже) — так реестр не
+  устаревает молча. Формула восстановлена из листов "Этапы по трекам" и
+  проверена на исходных данных (все 23 события "в процессе" на 09.08.2026
+  дают тот же результат, что и статичное значение в файле).
+-->
+<style>
+  :root {
+    --font-text: "Diagramatika Text", "Diagramatika Text Fallback", "Helvetica Neue", Arial, sans-serif;
+    --font-display: "Diagramatika Display", "Diagramatika Display Fallback", "Helvetica Neue", Arial, sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+    --tracking-display: 0.02em;
+
+    --text-sm: 12.5px;
+    --text-base: 15px;
+    --text-lg: 17px;
+    --display-md: 21px;
+    --display-lg: 32px;
+
+    --space-1: 4px;
+    --space-2: 8px;
+    --space-3: 12px;
+    --space-4: 16px;
+    --space-6: 24px;
+    --space-8: 32px;
+
+    --color-ink: #000000;
+    --color-paper: #FFFFFF;
+    --color-muted: #767267;
+    --color-hint: #9C9A91;
+    --color-hairline-bg: #F1EFE9;
+    --color-stripe: #FAF9F5;
+    --color-error: #B23A00;
+
+    --status-green: #2F6B3D;
+    --status-green-bg: #E7EFE5;
+    --status-amber: #9C6B0B;
+    --status-amber-bg: #F5EDDB;
+    --status-red: #B23A00;
+    --status-red-bg: #F5E4DB;
+    --status-grey: #9C9A91;
+    --status-grey-bg: #F1EFE9;
+
+    --border-hairline: 0.5px solid var(--color-ink);
+    --radius: 0px;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--color-paper); color:var(--color-ink);
+    font-family:var(--font-text); font-size:var(--text-base); line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding: 0 var(--space-4) var(--space-8);}
+
+  header.masthead{
+    padding: var(--space-6) 0 var(--space-4);
+    border-bottom: var(--border-hairline);
+    margin-bottom: var(--space-4);
+  }
+  .eyebrow{
+    font-family:var(--font-text); font-size:var(--text-sm); text-transform:uppercase;
+    letter-spacing:0.06em; color:var(--color-muted);
+  }
+  h1{
+    font-family:var(--font-display); font-weight:400; letter-spacing:var(--tracking-display);
+    font-size:var(--display-lg); margin: var(--space-1) 0 0;
+  }
+
+  /* ---- поиск ---- */
+  .search-bar{
+    position:sticky; top:0; background:var(--color-paper); z-index:5;
+    padding: var(--space-3) 0; border-bottom: var(--border-hairline);
+    margin-top: var(--space-4);
+  }
+  #search{
+    width:100%; font-family:var(--font-text); font-size:var(--text-lg); color:var(--color-ink);
+    border: var(--border-hairline); border-radius:var(--radius); background:var(--color-paper);
+    padding: var(--space-3) var(--space-4); margin-bottom: var(--space-3);
+  }
+  #search::placeholder{color:var(--color-hint);}
+  #search:focus-visible{outline:2px solid var(--color-ink); outline-offset:2px;}
+
+  .filters-line{display:flex; align-items:flex-end; gap: var(--space-4); flex-wrap:wrap; margin-bottom: var(--space-2);}
+  .filter-item{display:flex; flex-direction:column; gap:4px;}
+  .filter-label{
+    font-family:var(--font-text); font-size:11px; text-transform:uppercase; letter-spacing:0.05em;
+    color:var(--color-muted);
+  }
+  .filter-select{
+    font-family:var(--font-text); font-size:var(--text-sm); color:var(--color-ink);
+    background:var(--color-paper); border: var(--border-hairline); border-radius:var(--radius);
+    padding: var(--space-1) 28px var(--space-1) var(--space-2); min-width:190px; cursor:pointer; height:34px;
+    /* Нативный select рисуется системным виджетом со скруглением, которое
+       border-radius не перебивает — appearance:none снимает системный вид,
+       дальше рисуем свою прямоугольную рамку и стрелку. */
+    -webkit-appearance:none; -moz-appearance:none; appearance:none;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0L5 6L10 0Z' fill='%23000'/%3E%3C/svg%3E");
+    background-repeat:no-repeat; background-position:right 10px center;
+  }
+  .filter-select:focus-visible{outline:2px solid var(--color-ink); outline-offset:1px;}
+  .filter-select::-ms-expand{display:none;}
+
+  .toggle{
+    font-family:var(--font-text); font-size:var(--text-sm); color:var(--color-ink);
+    background:var(--color-paper); border: var(--border-hairline); border-radius:var(--radius);
+    padding: var(--space-1) var(--space-3); cursor:pointer; height:34px;
+  }
+  .toggle.active{background:var(--color-ink); color:var(--color-paper);}
+
+  .result-count{font-family:var(--font-mono); font-size:11px; color:var(--color-muted); margin-bottom: var(--space-2);}
+
+  /* ---- таблица реестра ---- */
+  .table-scroll{overflow-x:auto; border-top: var(--border-hairline);}
+  table.registry{width:100%; border-collapse:collapse; min-width:1000px;}
+  table.registry th{
+    background:var(--color-paper);
+    text-align:left; font-family:var(--font-text); font-size:11px; text-transform:uppercase;
+    letter-spacing:0.05em; color:var(--color-muted); padding: var(--space-2) var(--space-2);
+    border-bottom: var(--border-hairline); cursor:pointer; white-space:nowrap; user-select:none;
+  }
+  table.registry th .arrow{color:var(--color-ink); margin-left:3px;}
+  table.registry td{
+    padding: var(--space-2); border-bottom: 0.5px solid var(--color-hairline-bg);
+    vertical-align:top; font-size:var(--text-base);
+  }
+  table.registry tbody tr.event-row{cursor:pointer;}
+  table.registry tbody tr.event-row:hover{background:var(--color-stripe);}
+  table.registry tbody tr.event-row.expanded{background:var(--color-hairline-bg);}
+  .col-title{min-width:260px;}
+  .ev-title{font-weight:600;}
+  .ev-sub{font-family:var(--font-mono); font-size:11px; color:var(--color-muted); margin-top:2px;}
+  .track-badge{
+    display:inline-block; font-family:var(--font-text); font-size:11px;
+    border: var(--border-hairline); padding:1px 6px;
+  }
+  .dates-cell{font-family:var(--font-mono); font-size:12px; white-space:nowrap;}
+  .tminus-cell{white-space:nowrap;}
+  .tminus-now{font-weight:600;}
+  .dept-chips{display:flex; flex-wrap:wrap; gap:3px; max-width:220px;}
+  .dept-chip{
+    font-size:10.5px; font-family:var(--font-text); border: 0.5px solid var(--color-hint);
+    padding:1px 5px; color:var(--color-ink); white-space:nowrap;
+  }
+  .risk-flag{color:var(--color-error); font-weight:700; font-size:13px;}
+  .chevron{color:var(--color-muted); font-family:var(--font-mono); font-size:11px;}
+
+  /* ---- детальная панель ---- */
+  tr.detail-row td{
+    padding: var(--space-4); background:var(--color-hairline-bg); border-bottom: var(--border-hairline);
+  }
+  .detail-grid{display:grid; grid-template-columns: 1.1fr 1fr; gap: var(--space-6);}
+  @media (max-width: 900px){ .detail-grid{grid-template-columns:1fr;} }
+  .detail-block h4{
+    font-family:var(--font-text); font-size:11px; text-transform:uppercase; letter-spacing:0.05em;
+    color:var(--color-muted); margin:0 0 var(--space-2);
+  }
+  .detail-fact{font-size:var(--text-sm); margin-bottom:4px;}
+  .detail-fact b{font-weight:600;}
+  .link-line a{color:var(--color-ink);}
+
+  .status-grid{display:grid; grid-template-columns:1fr auto; gap:4px 12px; font-size:var(--text-sm);}
+  .status-dot{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:5px; vertical-align:middle;}
+  .status-dot.green{background:var(--status-green);}
+  .status-dot.amber{background:var(--status-amber);}
+  .status-dot.red{background:var(--status-red);}
+  .status-dot.grey{background:var(--status-grey);}
+  .status-text{font-size:12px;}
+
+  table.stage-table{width:100%; border-collapse:collapse; font-size:12px; margin-top:4px;}
+  table.stage-table th{
+    text-align:left; font-size:10px; text-transform:uppercase; color:var(--color-muted);
+    padding:3px 6px; border-bottom: 0.5px solid var(--color-hint);
+  }
+  table.stage-table td{padding:3px 6px; border-bottom: 0.5px solid var(--color-hairline-bg); vertical-align:top;}
+  table.stage-table tr.current-stage td{background:#fff; font-weight:600; box-shadow: inset 2px 0 0 var(--color-ink);}
+  .raci-role{font-family:var(--font-mono); font-weight:700;}
+
+  .risk-box{
+    font-size:var(--text-sm); background:#fff; border-left:3px solid var(--color-error);
+    padding: var(--space-2) var(--space-3); margin-top: var(--space-2);
+  }
+
+  .empty-state{text-align:center; padding: var(--space-8) var(--space-4); color:var(--color-muted);}
+  .empty-state button{
+    margin-top: var(--space-3); font-family:var(--font-text); font-size:var(--text-sm);
+    background:var(--color-ink); color:var(--color-paper); border:none;
+    border-radius:var(--radius); padding: var(--space-2) var(--space-4); cursor:pointer;
+  }
+
+  footer.page-footer{
+    margin-top: var(--space-8); padding-top: var(--space-4); border-top: var(--border-hairline);
+    font-family:var(--font-mono); font-size:11px; color:var(--color-muted);
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">Дом культуры «ГЭС-2» · управление событиями</div>
+    <h1>Реестр событий</h1>
+  </header>
+
+  <div class="search-bar">
+    <input type="search" id="search" placeholder="Например: название события, продюсер, риск…" autocomplete="off">
+
+    <div class="filters-line">
+      <div class="filter-item">
+        <span class="filter-label">Категория</span>
+        <select class="filter-select" id="f-category"></select>
+      </div>
+      <div class="filter-item">
+        <span class="filter-label">Трек</span>
+        <select class="filter-select" id="f-track"></select>
+      </div>
+      <div class="filter-item">
+        <span class="filter-label">Этап</span>
+        <select class="filter-select" id="f-stage"></select>
+      </div>
+      <div class="filter-item">
+        <span class="filter-label">Ответственный</span>
+        <select class="filter-select" id="f-dept"></select>
+      </div>
+      <button type="button" class="toggle" id="f-risk">⚠</button>
+    </div>
+    <div class="result-count" id="result-count"></div>
+  </div>
+
+  <div class="table-scroll">
+    <table class="registry" id="registry-table">
+      <thead>
+        <tr>
+          <th data-sort="title" class="col-title">Событие <span class="arrow"></span></th>
+          <th data-sort="track">Трек <span class="arrow"></span></th>
+          <th data-sort="dateStart">Даты <span class="arrow"></span></th>
+          <th data-sort="tminus">Срок <span class="arrow"></span></th>
+          <th data-sort="stage">Этап <span class="arrow"></span></th>
+          <th>Ответственный</th>
+          <th>Риск</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="registry-body"></tbody>
+    </table>
+  </div>
+
+  <footer class="page-footer">
+    ges-2.org · реестр собран 2026-08-09 из ges2_event_pm_template.xlsx · 72 событий · этапы пересчитываются на лету по текущей дате
+  </footer>
+
+</div>
+
+<script type="application/json" id="registry-data">{"meta": {"generated": "2026-08-09", "source": "docs/ges2_event_pm_template.xlsx", "totalEvents": 72}, "categories": ["Концерт", "Танцевальный показ", "Медиаторский тур", "Выставка", "Кинопоказ", "Лекция", "Прочее"], "tracks": ["Лёгкий", "Средний", "Тяжёлый"], "stagesOrder": ["Заявка/утверждение", "Бронирование площадки и ресурсов", "Продакшн", "Маркетинг/PR-план", "Финальная неделя", "Проведение", "Пост-ивент"], "departments": ["Продакшн/техника", "Маркетинг", "PR", "Площадка", "Питание", "Охрана"], "statusValues": ["Не начат", "Зелёный", "Жёлтый", "Красный", "Н/Д"], "stagesByTrack": {"Лёгкий": [{"stage": "Заявка/утверждение", "startTMinus": -45, "deadlineTMinus": -35, "responsible": "Продюсер", "comment": "Согласование темы/спикера, бюджет при наличии"}, {"stage": "Бронирование площадки и ресурсов", "startTMinus": -34, "deadlineTMinus": -21, "responsible": "Продюсер + Площадка", "comment": "Аудитория/зал, техника по минимуму"}, {"stage": "Маркетинг/PR-план", "startTMinus": -20, "deadlineTMinus": -7, "responsible": "Маркетинг", "comment": "Анонс в календаре и соцсетях, без спецкампании"}, {"stage": "Финальная неделя", "startTMinus": -7, "deadlineTMinus": -1, "responsible": "Продюсер", "comment": "Финальная сверка тайминга, без брифинга охраны/питания"}, {"stage": "Проведение", "startTMinus": 0, "deadlineTMinus": 0, "responsible": "Продюсер", "comment": "—"}, {"stage": "Пост-ивент", "startTMinus": 1, "deadlineTMinus": 5, "responsible": "Продюсер", "comment": "Короткий отчёт: явка, обратная связь"}], "Средний": [{"stage": "Заявка/утверждение", "startTMinus": -60, "deadlineTMinus": -45, "responsible": "Продюсер", "comment": "Согласование концепции и бюджета"}, {"stage": "Бронирование площадки и ресурсов", "startTMinus": -44, "deadlineTMinus": -25, "responsible": "Продюсер + Площадка", "comment": "Зал/пространство, базовая техника"}, {"stage": "Продакшн", "startTMinus": -30, "deadlineTMinus": -10, "responsible": "Продакшн", "comment": "Монтаж/техническое обеспечение показа или экспозиции"}, {"stage": "Маркетинг/PR-план", "startTMinus": -30, "deadlineTMinus": -3, "responsible": "Маркетинг + PR", "comment": "Анонс, пресс-лист при необходимости"}, {"stage": "Финальная неделя", "startTMinus": -7, "deadlineTMinus": -1, "responsible": "Продюсер", "comment": "Брифинг площадки, проверка готовности зала"}, {"stage": "Проведение", "startTMinus": 0, "deadlineTMinus": 0, "responsible": "Продюсер + Площадка", "comment": "—"}, {"stage": "Пост-ивент", "startTMinus": 1, "deadlineTMinus": 7, "responsible": "Продюсер", "comment": "Демонтаж, отчёт по посещаемости и медиаохвату"}], "Тяжёлый": [{"stage": "Заявка/утверждение", "startTMinus": -90, "deadlineTMinus": -70, "responsible": "Продюсер", "comment": "Утверждение концепции, бюджета, состава участников"}, {"stage": "Бронирование площадки и ресурсов", "startTMinus": -69, "deadlineTMinus": -40, "responsible": "Продюсер + Площадка", "comment": "Основной зал/двор, расширенная техника"}, {"stage": "Продакшн", "startTMinus": -45, "deadlineTMinus": -14, "responsible": "Продакшн", "comment": "Сцена, свет, звук, монтаж экспозиции"}, {"stage": "Маркетинг/PR-план", "startTMinus": -45, "deadlineTMinus": -5, "responsible": "Маркетинг + PR", "comment": "Полная кампания: анонс, реклама, пресса, инфлюенсеры"}, {"stage": "Финальная неделя", "startTMinus": -7, "deadlineTMinus": -1, "responsible": "Продюсер", "comment": "Брифинг охраны (потоки, зоны), питания (объём, тайминг), площадки, финальный техпрогон"}, {"stage": "Проведение", "startTMinus": 0, "deadlineTMinus": 0, "responsible": "Все отделы", "comment": "Продюсер координирует, охрана/питание/площадка — на месте"}, {"stage": "Пост-ивент", "startTMinus": 1, "deadlineTMinus": 10, "responsible": "Продюсер", "comment": "Демонтаж, разбор инцидентов, отчёт по всем метрикам"}]}, "raci": {"Лёгкий": {"Заявка/утверждение": {"Продюсер": "R", "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null, "Продакшн/техника": null}, "Бронирование площадки и ресурсов": {"Продюсер": "A", "Маркетинг": null, "PR": null, "Площадка": "R", "Питание": null, "Охрана": null, "Продакшн/техника": null}, "Маркетинг/PR-план": {"Продюсер": "A", "Маркетинг": "R", "PR": "I", "Площадка": null, "Питание": null, "Охрана": null, "Продакшн/техника": null}, "Финальная неделя": {"Продюсер": "R", "Маркетинг": "I", "PR": null, "Площадка": "I", "Питание": null, "Охрана": null, "Продакшн/техника": null}, "Проведение": {"Продюсер": "R", "Маркетинг": null, "PR": null, "Площадка": "C", "Питание": null, "Охрана": null, "Продакшн/техника": null}, "Пост-ивент": {"Продюсер": "R", "Маркетинг": "I", "PR": null, "Площадка": null, "Питание": null, "Охрана": null, "Продакшн/техника": null}}, "Средний": {"Заявка/утверждение": {"Продюсер": "R", "Маркетинг": "C", "PR": "C", "Площадка": "C", "Питание": null, "Охрана": null, "Продакшн/техника": null}, "Бронирование площадки и ресурсов": {"Продюсер": "A", "Маркетинг": null, "PR": null, "Площадка": "R", "Питание": null, "Охрана": null, "Продакшн/техника": "C"}, "Продакшн": {"Продюсер": "A", "Маркетинг": null, "PR": null, "Площадка": "C", "Питание": null, "Охрана": null, "Продакшн/техника": "R"}, "Маркетинг/PR-план": {"Продюсер": "A", "Маркетинг": "R", "PR": "R", "Площадка": "I", "Питание": null, "Охрана": null, "Продакшн/техника": null}, "Финальная неделя": {"Продюсер": "R", "Маркетинг": "I", "PR": "I", "Площадка": "A", "Питание": "I", "Охрана": "I", "Продакшн/техника": "C"}, "Проведение": {"Продюсер": "R", "Маркетинг": null, "PR": null, "Площадка": "C", "Питание": null, "Охрана": null, "Продакшн/техника": "C"}, "Пост-ивент": {"Продюсер": "R", "Маркетинг": "C", "PR": "C", "Площадка": "I", "Питание": null, "Охрана": null, "Продакшн/техника": "I"}}, "Тяжёлый": {"Заявка/утверждение": {"Продюсер": "R", "Маркетинг": "C", "PR": "C", "Площадка": "C", "Питание": "C", "Охрана": "C", "Продакшн/техника": "C"}, "Бронирование площадки и ресурсов": {"Продюсер": "A", "Маркетинг": null, "PR": null, "Площадка": "R", "Питание": "I", "Охрана": "I", "Продакшн/техника": "C"}, "Продакшн": {"Продюсер": "A", "Маркетинг": null, "PR": null, "Площадка": "C", "Питание": null, "Охрана": null, "Продакшн/техника": "R"}, "Маркетинг/PR-план": {"Продюсер": "A", "Маркетинг": "R", "PR": "R", "Площадка": "I", "Питание": null, "Охрана": null, "Продакшн/техника": "I"}, "Финальная неделя": {"Продюсер": "A", "Маркетинг": "I", "PR": "I", "Площадка": "R", "Питание": "R", "Охрана": "R", "Продакшн/техника": "C"}, "Проведение": {"Продюсер": "R", "Маркетинг": "I", "PR": "I", "Площадка": "C", "Питание": "C", "Охрана": "C", "Продакшн/техника": "C"}, "Пост-ивент": {"Продюсер": "R", "Маркетинг": "C", "PR": "C", "Площадка": "C", "Питание": "C", "Охрана": "C", "Продакшн/техника": "C"}}}, "events": [{"id": 1, "title": "Курс подготовки глухих музейных специалистов", "category": "Лекция", "track": "Лёгкий", "dateStart": "2025-10-01", "dateEnd": "2026-08-31", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/training-course-for-deaf-museum-professionals"}, {"id": 2, "title": "Хадзар мечты", "category": "Медиаторский тур", "track": "Лёгкий", "dateStart": "2026-04-23", "dateEnd": "2026-09-13", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": "Выставка закрывается 13.09 — почти одновременно с «Москва — Ханой» (20.09).", "link": "https://ges-2.org/khadzar-of-dreams-mediated-tour"}, {"id": 3, "title": "Хадзар мечты", "category": "Выставка", "track": "Тяжёлый", "dateStart": "2026-04-23", "dateEnd": "2026-09-13", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": "Выставка закрывается 13.09 — почти одновременно с «Москва — Ханой» (20.09).", "link": "https://ges-2.org/projects/khadzar-of-dreams"}, {"id": 4, "title": "Лес, полный красот и чудес", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-05-09", "dateEnd": "2026-08-29", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/forest-full-of-beauty-and-wonders"}, {"id": 5, "title": "Москва — Ханой. Ландшафты оптимизма", "category": "Выставка", "track": "Тяжёлый", "dateStart": "2026-05-21", "dateEnd": "2026-09-20", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": "Закрытие 20.09 — окно на монтаж следующей выставки («Натюрморт…», открытие 15.10) около месяца.", "link": "https://ges-2.org/projects/moscow-hanoi-landscapes-of-optimism"}, {"id": 6, "title": "Москва — Ханой. Ландшафты оптимизма", "category": "Медиаторский тур", "track": "Лёгкий", "dateStart": "2026-05-21", "dateEnd": "2026-09-20", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": "Закрытие 20.09 — окно на монтаж следующей выставки («Натюрморт…», открытие 15.10) около месяца.", "link": "https://ges-2.org/moscow-hanoi-landscapes-of-optimism-mediated-tour"}, {"id": 7, "title": "Игры на лужайке", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-05-30", "dateEnd": "2026-10-01", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/lawn-games"}, {"id": 8, "title": "Фотооснова. Лаборатория печатных практик для художников", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-06-01", "dateEnd": "2026-10-30", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/photo-basis-printmaking-practices-lab-for-artists"}, {"id": 9, "title": "Как тебе тут?", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-06-02", "dateEnd": "2026-09-20", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/how-do-you-like-it-here"}, {"id": 10, "title": "Весь мир здесь обретает дом: по следам Тагора", "category": "Выставка", "track": "Тяжёлый", "dateStart": "2026-06-25", "dateEnd": "2026-08-23", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": "Закрытие 23.08 — одна из трёх почти одновременно закрывающихся выставок.", "link": "https://ges-2.org/projects/the-world-in-a-single-nest-following-the-way-of-tagore"}, {"id": 11, "title": "В тени баньяна", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-06-25", "dateEnd": "2026-08-23", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/in-the-shade-of-the-banyan-tree"}, {"id": 12, "title": "Весь мир здесь обретает дом: по следам Тагора", "category": "Медиаторский тур", "track": "Лёгкий", "dateStart": "2026-06-25", "dateEnd": "2026-08-23", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": "Закрытие 23.08 — одна из трёх почти одновременно закрывающихся выставок.", "link": "https://ges-2.org/the-world-in-a-single-nest-following-the-way-of-tagore-mediated-tour"}, {"id": 13, "title": "Роща чувств. Новое звучание", "category": "Танцевальный показ", "track": "Средний", "dateStart": "2026-06-28", "dateEnd": "2026-08-30", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/forest-of-feelings-the-new-sound"}, {"id": 14, "title": "Палисадник-2026", "category": "Выставка", "track": "Тяжёлый", "dateStart": "2026-07-01", "dateEnd": "2026-09-30", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/projects/front-garden-2026"}, {"id": 15, "title": "Как стать меньше мухи", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-07-02", "dateEnd": "2026-08-20", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/how-to-become-smaller-than-a-fly"}, {"id": 16, "title": "Вне стен: прогулка по Музеону", "category": "Медиаторский тур", "track": "Лёгкий", "dateStart": "2026-07-07", "dateEnd": "2026-09-28", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/outside-the-walls-a-walk-in-muzeon-park"}, {"id": 17, "title": "К сердцу земли. Учиться у природы", "category": "Медиаторский тур", "track": "Лёгкий", "dateStart": "2026-07-12", "dateEnd": "2026-08-23", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/to-the-heart-of-the-earth-learning-from-nature"}, {"id": 18, "title": "Программа для живописцев и скульпторов. Открытый набор на второй сезон", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-07-13", "dateEnd": "2026-08-31", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/programme-for-painters-and-sculptors-open-call-for-season-2"}, {"id": 19, "title": "Йога в Роще", "category": "Медиаторский тур", "track": "Лёгкий", "dateStart": "2026-07-18", "dateEnd": "2026-08-26", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/yoga-in-the-forest"}, {"id": 20, "title": "За контурами моды. Летняя программа медиации", "category": "Лекция", "track": "Лёгкий", "dateStart": "2026-07-26", "dateEnd": "2026-08-26", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/beyond-fashion-contours-mediation-summer-programme"}, {"id": 21, "title": "Открытый факультет медиации. Владивосток/Калининград. Открытый набор", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-07-29", "dateEnd": "2026-08-11", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/open-faculty-of-mediation-vladivostok-kaliningrad-open-call"}, {"id": 22, "title": "След и ритм", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-08-04", "dateEnd": "2026-08-13", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/trace-and-rhythm"}, {"id": 23, "title": "Что с лицом?", "category": "Кинопоказ", "track": "Средний", "dateStart": "2026-08-06", "dateEnd": "2026-08-19", "producer": null, "sourceStageHint": "Проведение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/projects/what-s-with-the-face"}, {"id": 24, "title": "Другой Тагор: творческая вселенная от экспериментов в графике до музыкальной революции", "category": "Лекция", "track": "Лёгкий", "dateStart": "2026-08-11", "dateEnd": "2026-08-18", "producer": null, "sourceStageHint": "Финальная неделя", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/the-other-tagore-the-creative-universe"}, {"id": 25, "title": "Десять", "category": "Кинопоказ", "track": "Средний", "dateStart": "2026-08-12", "dateEnd": "2026-08-12", "producer": null, "sourceStageHint": "Маркетинг/PR-план", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/ten"}, {"id": 26, "title": "Шепот сердца", "category": "Кинопоказ", "track": "Средний", "dateStart": "2026-08-13", "dateEnd": "2026-08-13", "producer": null, "sourceStageHint": "Маркетинг/PR-план", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/whisper-of-the-heart"}, {"id": 27, "title": "Комиссар", "category": "Кинопоказ", "track": "Средний", "dateStart": "2026-08-13", "dateEnd": "2026-08-13", "producer": null, "sourceStageHint": "Маркетинг/PR-план", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/commissar"}, {"id": 28, "title": "Медиация с Румой Чоудхури", "category": "Медиаторский тур", "track": "Лёгкий", "dateStart": "2026-08-14", "dateEnd": "2026-08-15", "producer": null, "sourceStageHint": "Финальная неделя", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/mediation-with-ruma-choudhury"}, {"id": 29, "title": "Самурай и пленник", "category": "Кинопоказ", "track": "Средний", "dateStart": "2026-08-14", "dateEnd": "2026-08-14", "producer": null, "sourceStageHint": "Маркетинг/PR-план", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/the-samurai-and-the-prisoner"}, {"id": 30, "title": "Где приземлиться", "category": "Кинопоказ", "track": "Средний", "dateStart": "2026-08-14", "dateEnd": "2026-08-14", "producer": null, "sourceStageHint": "Маркетинг/PR-план", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/where-to-land"}, {"id": 31, "title": "Слово и образ: как читать индийских авторов сегодня", "category": "Лекция", "track": "Лёгкий", "dateStart": "2026-08-15", "dateEnd": "2026-08-15", "producer": null, "sourceStageHint": "Финальная неделя", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/word-and-image-how-to-read-indian-authors-today"}, {"id": 32, "title": "Генеральная линия", "category": "Кинопоказ", "track": "Средний", "dateStart": "2026-08-15", "dateEnd": "2026-08-15", "producer": null, "sourceStageHint": "Маркетинг/PR-план", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/the-general-line"}, {"id": 33, "title": "Полдень шахмат", "category": "Лекция", "track": "Лёгкий", "dateStart": "2026-08-16", "dateEnd": "2026-08-16", "producer": null, "sourceStageHint": "Маркетинг/PR-план", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/afternoon-of-chess"}, {"id": 34, "title": "Бумага, созданная рекой", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-08-16", "dateEnd": "2026-08-16", "producer": null, "sourceStageHint": "Маркетинг/PR-план", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/paper-created-by-the-river"}, {"id": 35, "title": "Девушки", "category": "Кинопоказ", "track": "Средний", "dateStart": "2026-08-16", "dateEnd": "2026-08-16", "producer": null, "sourceStageHint": "Маркетинг/PR-план", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/the-girls"}, {"id": 36, "title": "Красный гаолян", "category": "Кинопоказ", "track": "Средний", "dateStart": "2026-08-16", "dateEnd": "2026-08-16", "producer": null, "sourceStageHint": "Маркетинг/PR-план", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/red-sorghum"}, {"id": 37, "title": "Тема", "category": "Кинопоказ", "track": "Средний", "dateStart": "2026-08-18", "dateEnd": "2026-08-18", "producer": null, "sourceStageHint": "Маркетинг/PR-план", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/the-theme"}, {"id": 38, "title": "Земля", "category": "Кинопоказ", "track": "Средний", "dateStart": "2026-08-19", "dateEnd": "2026-08-19", "producer": null, "sourceStageHint": "Продакшн", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/earth-film"}, {"id": 39, "title": "Небывальщина", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-08-23", "dateEnd": "2026-08-30", "producer": null, "sourceStageHint": "Маркетинг/PR-план", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/imaginary-creatures"}, {"id": 40, "title": "ГЭС-2 Саундсистем 4. Mind*", "category": "Лекция", "track": "Тяжёлый", "dateStart": "2026-08-24", "dateEnd": "2026-08-26", "producer": null, "sourceStageHint": "Продакшн", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": "Крупный музыкальный уикенд (24–30.08) — пиковая нагрузка на посетительский сервис и парковку.", "link": "https://ges-2.org/ges-2-soundsystem-4-mind"}, {"id": 41, "title": "ГЭС-2 Саундсистем 4", "category": "Лекция", "track": "Тяжёлый", "dateStart": "2026-08-24", "dateEnd": "2026-08-30", "producer": null, "sourceStageHint": "Продакшн", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": "Крупный музыкальный уикенд (24–30.08) — пиковая нагрузка на посетительский сервис и парковку.", "link": "https://ges-2.org/projects/ges-2-soundsystem-4"}, {"id": 42, "title": "ГЭС-2 Саундсистем 4. Body*", "category": "Лекция", "track": "Тяжёлый", "dateStart": "2026-08-24", "dateEnd": "2026-08-30", "producer": null, "sourceStageHint": "Продакшн", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": "Крупный музыкальный уикенд (24–30.08) — пиковая нагрузка на посетительский сервис и парковку.", "link": "https://ges-2.org/ges-2-soundsystem-4-body"}, {"id": 43, "title": "ГЭС-2 Саундсистем 4. Spirit*", "category": "Лекция", "track": "Тяжёлый", "dateStart": "2026-08-30", "dateEnd": "2026-08-30", "producer": null, "sourceStageHint": "Продакшн", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": "Крупный музыкальный уикенд (24–30.08) — пиковая нагрузка на посетительский сервис и парковку.", "link": "https://ges-2.org/ges-2-soundsystem-4-spirit"}, {"id": 44, "title": "Песни Палисадника", "category": "Лекция", "track": "Лёгкий", "dateStart": "2026-08-30", "dateEnd": "2026-08-30", "producer": null, "sourceStageHint": "Бронирование площадки и ресурсов", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/songs-of-the-front-garden"}, {"id": 45, "title": "Технический сценарий", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-09-01", "dateEnd": "2026-12-10", "producer": null, "sourceStageHint": "Бронирование площадки и ресурсов", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/technical-script"}, {"id": 46, "title": "Вагон пользы и еще тележка", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-09-04", "dateEnd": "2026-11-27", "producer": null, "sourceStageHint": "Бронирование площадки и ресурсов", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/loads-of-benefits-and-a-cartload"}, {"id": 47, "title": "Субботние игры на Платформах", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-09-05", "dateEnd": "2026-11-28", "producer": null, "sourceStageHint": "Бронирование площадки и ресурсов", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/saturday-games"}, {"id": 48, "title": "1=52", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-09-06", "dateEnd": "2026-09-27", "producer": null, "sourceStageHint": "Бронирование площадки и ресурсов", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/1-52"}, {"id": 49, "title": "Гала. Пять лет музыки", "category": "Концерт", "track": "Тяжёлый", "dateStart": "2026-09-07", "dateEnd": "2026-12-16", "producer": null, "sourceStageHint": "Продакшн", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/projects/gala-five-years-of-music"}, {"id": 50, "title": "Минусболеро", "category": "Концерт", "track": "Тяжёлый", "dateStart": "2026-09-07", "dateEnd": "2026-09-07", "producer": null, "sourceStageHint": "Продакшн", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/minusbolero"}, {"id": 51, "title": "Принты и чудики", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-09-09", "dateEnd": "2026-09-23", "producer": null, "sourceStageHint": "Бронирование площадки и ресурсов", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/prints-and-oddballs"}, {"id": 52, "title": "Божественная комедия", "category": "Выставка", "track": "Тяжёлый", "dateStart": "2026-09-10", "dateEnd": "2026-09-10", "producer": null, "sourceStageHint": "Продакшн", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/projects/divine-comedy"}, {"id": 53, "title": "Ба-бах!", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-09-10", "dateEnd": "2026-11-12", "producer": null, "sourceStageHint": "Бронирование площадки и ресурсов", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/boom-bach"}, {"id": 54, "title": "Рогатые и хвостатые", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-09-10", "dateEnd": "2026-11-12", "producer": null, "sourceStageHint": "Бронирование площадки и ресурсов", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/horned-and-tailed"}, {"id": 55, "title": "Йога выходного дня", "category": "Лекция", "track": "Средний", "dateStart": "2026-09-12", "dateEnd": "2026-11-28", "producer": null, "sourceStageHint": "Бронирование площадки и ресурсов", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": true, "riskNote": null, "link": "https://ges-2.org/weekend-yoga"}, {"id": 56, "title": "Домашний театр", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-09-12", "dateEnd": "2026-11-29", "producer": null, "sourceStageHint": "Бронирование площадки и ресурсов", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/home-theatre"}, {"id": 57, "title": "Вижу смыслы в каждой травке", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-09-12", "dateEnd": "2026-12-12", "producer": null, "sourceStageHint": "Бронирование площадки и ресурсов", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/i-see-meaning-in-every-blade-of-grass"}, {"id": 58, "title": "Семейная йога", "category": "Медиаторский тур", "track": "Лёгкий", "dateStart": "2026-09-13", "dateEnd": "2026-09-13", "producer": null, "sourceStageHint": "Заявка/утверждение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/family-yoga"}, {"id": 59, "title": "И все-таки она вертится", "category": "Концерт", "track": "Тяжёлый", "dateStart": "2026-09-14", "dateEnd": "2026-09-14", "producer": null, "sourceStageHint": "Продакшн", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/and-yet-it-moves-2026"}, {"id": 60, "title": "Город, который придумал я", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-09-16", "dateEnd": "2026-12-02", "producer": null, "sourceStageHint": "Заявка/утверждение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/the-city-i-made-up"}, {"id": 61, "title": "Фестиваль коллективных фильмов", "category": "Кинопоказ", "track": "Тяжёлый", "dateStart": "2026-09-17", "dateEnd": "2026-10-01", "producer": null, "sourceStageHint": "Продакшн", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/projects/festival-of-collective-films"}, {"id": 62, "title": "Излучение голоса", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-09-19", "dateEnd": "2026-11-21", "producer": null, "sourceStageHint": "Заявка/утверждение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/voice-radiation"}, {"id": 63, "title": "В полный голос. Осень 2026", "category": "Лекция", "track": "Лёгкий", "dateStart": "2026-09-19", "dateEnd": "2026-12-07", "producer": null, "sourceStageHint": "Заявка/утверждение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/projects/in-a-loud-voice-autumn-2026"}, {"id": 64, "title": "А и Б сидели на трубе", "category": "Прочее", "track": "Средний", "dateStart": "2026-09-22", "dateEnd": "2026-12-08", "producer": null, "sourceStageHint": "Бронирование площадки и ресурсов", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": true, "riskNote": null, "link": "https://ges-2.org/a-and-b-were-sitting-on-a-pipe"}, {"id": 65, "title": "Лесные человечки", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-09-22", "dateEnd": "2026-12-08", "producer": null, "sourceStageHint": "Заявка/утверждение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/forest-people"}, {"id": 66, "title": "Как управлять хаосом?", "category": "Прочее", "track": "Средний", "dateStart": "2026-09-23", "dateEnd": "2026-12-02", "producer": null, "sourceStageHint": "Заявка/утверждение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": true, "riskNote": null, "link": "https://ges-2.org/how-to-control-chaos"}, {"id": 67, "title": "Эффект бабочки", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-10-04", "dateEnd": "2026-10-25", "producer": null, "sourceStageHint": "Заявка/утверждение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/butterfly-effect"}, {"id": 68, "title": "Йога смеха", "category": "Медиаторский тур", "track": "Средний", "dateStart": "2026-10-08", "dateEnd": "2026-11-26", "producer": null, "sourceStageHint": "Заявка/утверждение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": true, "riskNote": null, "link": "https://ges-2.org/laughter-yoga"}, {"id": 69, "title": "Мастерская кикимор", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-10-11", "dateEnd": "2026-10-11", "producer": null, "sourceStageHint": "Заявка/утверждение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/kikimoras-workshop"}, {"id": 70, "title": "Натюрморт. Портрет. Пейзаж. После жанра", "category": "Выставка", "track": "Тяжёлый", "dateStart": "2026-10-15", "dateEnd": "2027-04-25", "producer": null, "sourceStageHint": "Бронирование площадки и ресурсов", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": "Открытие только 15.10 — после почти месячного окна на монтаж/демонтаж.", "link": "https://ges-2.org/projects/crisis-of-genre-still-life-portrait-landscape"}, {"id": 71, "title": "Ламповый Новый год", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-10-19", "dateEnd": "2026-12-07", "producer": null, "sourceStageHint": "Заявка/утверждение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/analogue-new-year"}, {"id": 72, "title": "След в воздухе", "category": "Прочее", "track": "Лёгкий", "dateStart": "2026-11-08", "dateEnd": "2026-11-29", "producer": null, "sourceStageHint": "Заявка/утверждение", "departments": {"Продакшн/техника": null, "Маркетинг": null, "PR": null, "Площадка": null, "Питание": null, "Охрана": null}, "paid": false, "riskNote": null, "link": "https://ges-2.org/a-trace-in-the-air"}]}</script>
+<script>
+(function () {
+  'use strict';
+
+  var DATA = JSON.parse(document.getElementById('registry-data').textContent);
+  var events = DATA.events;
+  var stagesByTrack = DATA.stagesByTrack;
+  var raci = DATA.raci;
+  var STAGES_ORDER = DATA.stagesOrder;
+  var DEPARTMENTS = DATA.departments;
+
+  var state = { q: '', category: 'all', track: 'all', stage: 'all', dept: 'all', riskOnly: false };
+  var sort = { key: 'dateStart', dir: 1 };
+  var expandedId = null;
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, function (c) {
+      return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+    });
+  }
+
+  function parseDate(iso) {
+    var p = iso.split('-');
+    return new Date(parseInt(p[0], 10), parseInt(p[1], 10) - 1, parseInt(p[2], 10));
+  }
+
+  function daysBetween(a, b) {
+    var MS = 24 * 60 * 60 * 1000;
+    var da = new Date(a.getFullYear(), a.getMonth(), a.getDate());
+    var db = new Date(b.getFullYear(), b.getMonth(), b.getDate());
+    return Math.round((db - da) / MS);
+  }
+
+  function fmtDate(iso) {
+    var d = parseDate(iso);
+    var dd = String(d.getDate()).padStart(2, '0');
+    var mm = String(d.getMonth() + 1).padStart(2, '0');
+    var yy = String(d.getFullYear()).slice(2);
+    return dd + '.' + mm + '.' + yy;
+  }
+
+  // Пересчёт текущего этапа по реальной дате — см. пояснение в шапке файла.
+  function computeStage(ev, today) {
+    var start = parseDate(ev.dateStart);
+    var end = parseDate(ev.dateEnd);
+    if (today >= start && today <= end) return { stage: 'Проведение', tminus: daysBetween(today, start) };
+    if (today > end) return { stage: 'Пост-ивент', tminus: daysBetween(today, start) };
+
+    var g = daysBetween(today, start); // положительное число дней до начала
+    var schedule = stagesByTrack[ev.track].filter(function (s) { return s.stage !== 'Проведение' && s.stage !== 'Пост-ивент'; });
+    var chosen = schedule[0] ? schedule[0].stage : 'Заявка/утверждение';
+    for (var i = 0; i < schedule.length; i++) {
+      var s = schedule[i];
+      var startAbs = Math.abs(s.startTMinus);
+      var deadlineAbs = Math.abs(s.deadlineTMinus);
+      if (g <= startAbs && g >= deadlineAbs) { chosen = s.stage; break; }
+      if (g > startAbs) { chosen = s.stage; } // за пределами горизонта — откат на самый ранний этап
+    }
+    return { stage: chosen, tminus: g };
+  }
+
+  function tminusLabel(computed) {
+    var n = computed.tminus;
+    if (computed.stage === 'Проведение') return 'идёт сейчас';
+    if (n === 0) return 'сегодня';
+    if (n > 0) return 'через ' + n + ' ' + dayWord(n);
+    return n * -1 + ' ' + dayWord(-n) + ' назад';
+  }
+
+  function dayWord(n) {
+    var n10 = n % 10, n100 = n % 100;
+    if (n100 >= 11 && n100 <= 14) return 'дней';
+    if (n10 === 1) return 'день';
+    if (n10 >= 2 && n10 <= 4) return 'дня';
+    return 'дней';
+  }
+
+  function departmentsResponsibleNow(ev, stage) {
+    var stageRaci = (raci[ev.track] || {})[stage] || {};
+    return DEPARTMENTS.filter(function (d) { return stageRaci[d] === 'R'; });
+  }
+
+  function statusDotClass(val) {
+    if (val === 'Зелёный') return 'green';
+    if (val === 'Жёлтый') return 'amber';
+    if (val === 'Красный') return 'red';
+    return 'grey';
+  }
+
+  function computeOverallStatus(ev) {
+    var vals = DEPARTMENTS.map(function (d) { return ev.departments[d]; });
+    var filled = vals.filter(function (v) { return v !== null && v !== undefined; });
+    if (filled.length === 0) return null;
+    if (filled.indexOf('Красный') !== -1) return 'Красный';
+    if (filled.indexOf('Жёлтый') !== -1) return 'Жёлтый';
+    if (filled.indexOf('Не начат') !== -1) return 'Не начат';
+    return 'Зелёный';
+  }
+
+  // ---- предвычисление на текущий момент (единая точка "сейчас" на весь рендер) ----
+  var TODAY = new Date();
+  TODAY.setHours(0, 0, 0, 0);
+  var computed = {};
+  events.forEach(function (ev) { computed[ev.id] = computeStage(ev, TODAY); });
+
+  function buildSelect(containerId, key, values, counts) {
+    var el = document.getElementById(containerId);
+    var html = '<option value="all">Все (' + events.length + ')</option>';
+    values.forEach(function (v) {
+      var c = counts[v] || 0;
+      html += '<option value="' + escapeHtml(v) + '">' + escapeHtml(v) + ' (' + c + ')</option>';
+    });
+    el.innerHTML = html;
+    el.value = state[key];
+    el.addEventListener('change', function () {
+      state[key] = el.value;
+      render();
+    });
+  }
+
+  function countBy(fn) {
+    var counts = {};
+    events.forEach(function (ev) {
+      var v = fn(ev);
+      counts[v] = (counts[v] || 0) + 1;
+    });
+    return counts;
+  }
+
+  function setupFilters() {
+    buildSelect('f-category', 'category', DATA.categories, countBy(function (ev) { return ev.category; }));
+    buildSelect('f-track', 'track', DATA.tracks, countBy(function (ev) { return ev.track; }));
+
+    var stagesPresent = STAGES_ORDER.filter(function (s) {
+      return events.some(function (ev) { return computed[ev.id].stage === s; });
+    });
+    buildSelect('f-stage', 'stage', stagesPresent, countBy(function (ev) { return computed[ev.id].stage; }));
+
+    // dept-фильтр особый: событие может иметь НЕСКОЛЬКО ответственных отделов
+    // одновременно, поэтому счётчик — это не countBy (который взял бы только
+    // один отдел на событие), а сумма по каждому отделу отдельно; матчинг в
+    // matchesFilters ниже соответственно проверяет "входит в список", а не "равно".
+    var deptCounts = {};
+    DEPARTMENTS.forEach(function (d) { deptCounts[d] = 0; });
+    events.forEach(function (ev) {
+      departmentsResponsibleNow(ev, computed[ev.id].stage).forEach(function (d) { deptCounts[d]++; });
+    });
+    buildSelect('f-dept', 'dept', DEPARTMENTS, deptCounts);
+
+    document.getElementById('f-risk').addEventListener('click', function () {
+      state.riskOnly = !state.riskOnly;
+      this.classList.toggle('active', state.riskOnly);
+      render();
+    });
+
+    document.querySelectorAll('#registry-table th[data-sort]').forEach(function (th) {
+      th.addEventListener('click', function () {
+        var key = th.getAttribute('data-sort');
+        if (sort.key === key) { sort.dir *= -1; } else { sort.key = key; sort.dir = 1; }
+        document.querySelectorAll('#registry-table th .arrow').forEach(function (a) { a.textContent = ''; });
+        th.querySelector('.arrow').textContent = sort.dir === 1 ? '↑' : '↓';
+        render();
+      });
+    });
+  }
+
+  function matchesFilters(ev) {
+    var st = computed[ev.id];
+    if (state.category !== 'all' && ev.category !== state.category) return false;
+    if (state.track !== 'all' && ev.track !== state.track) return false;
+    if (state.stage !== 'all' && st.stage !== state.stage) return false;
+    if (state.dept !== 'all' && departmentsResponsibleNow(ev, st.stage).indexOf(state.dept) === -1) return false;
+    if (state.riskOnly && !ev.riskNote) return false;
+    if (state.q) {
+      var q = state.q.toLowerCase();
+      var hay = (ev.title + ' ' + ev.category + ' ' + (ev.producer || '') + ' ' + (ev.riskNote || '')).toLowerCase();
+      if (hay.indexOf(q) === -1) return false;
+    }
+    return true;
+  }
+
+  function sortValue(ev) {
+    var st = computed[ev.id];
+    switch (sort.key) {
+      case 'title': return ev.title.toLowerCase();
+      case 'track': return DATA.tracks.indexOf(ev.track);
+      case 'dateStart': return ev.dateStart;
+      case 'tminus': return st.tminus + (st.stage === 'Проведение' ? -100000 : 0);
+      case 'stage': return STAGES_ORDER.indexOf(st.stage);
+      default: return ev.dateStart;
+    }
+  }
+
+  function stageDetailTable(ev) {
+    var schedule = stagesByTrack[ev.track];
+    var stageRaciForTrack = raci[ev.track] || {};
+    var rows = schedule.map(function (s) {
+      var isCurrent = s.stage === computed[ev.id].stage;
+      var rolesEntries = Object.keys(stageRaciForTrack[s.stage] || {})
+        .filter(function (d) { return stageRaciForTrack[s.stage][d]; })
+        .map(function (d) { return d + ' <span class="raci-role">' + stageRaciForTrack[s.stage][d] + '</span>'; })
+        .join(', ');
+      return '<tr class="' + (isCurrent ? 'current-stage' : '') + '"><td>' + escapeHtml(s.stage) + '</td>' +
+        '<td>T' + s.startTMinus + '…T' + s.deadlineTMinus + '</td>' +
+        '<td>' + (rolesEntries || '—') + '</td></tr>';
+    }).join('');
+    return '<table class="stage-table"><tr><th>Этап трека «' + escapeHtml(ev.track) + '»</th><th>T-минус окно</th><th>RACI</th></tr>' + rows + '</table>';
+  }
+
+  function statusGridHtml(ev) {
+    return '<div class="status-grid">' + DEPARTMENTS.map(function (d) {
+      var v = ev.departments[d];
+      var label = v || 'не проставлено';
+      return '<span>' + escapeHtml(d) + '</span><span class="status-text"><span class="status-dot ' + statusDotClass(v) + '"></span>' + escapeHtml(label) + '</span>';
+    }).join('') + '</div>';
+  }
+
+  function detailRowHtml(ev) {
+    var overall = computeOverallStatus(ev);
+    return '<tr class="detail-row"><td colspan="8"><div class="detail-grid">' +
+      '<div class="detail-block">' +
+      '<h4>Карточка события</h4>' +
+      '<div class="detail-fact"><b>ID:</b> ' + escapeHtml(ev.id) + '</div>' +
+      '<div class="detail-fact"><b>Категория:</b> ' + escapeHtml(ev.category) + '</div>' +
+      '<div class="detail-fact"><b>Продюсер:</b> ' + escapeHtml(ev.producer || 'не назначен') + '</div>' +
+      '<div class="detail-fact"><b>Платно:</b> ' + (ev.paid ? 'Да' : 'Нет') + '</div>' +
+      '<div class="detail-fact"><b>Общий статус:</b> ' + (overall ? escapeHtml(overall) : 'не проставлен (отделы ещё не заполнили статусы)') + '</div>' +
+      '<div class="detail-fact link-line"><b>Страница:</b> ' + (ev.link ? '<a href="' + escapeHtml(ev.link) + '" target="_blank" rel="noopener">' + escapeHtml(ev.link) + '</a>' : '—') + '</div>' +
+      (ev.riskNote ? '<div class="risk-box">⚠ ' + escapeHtml(ev.riskNote) + '</div>' : '') +
+      '<h4 style="margin-top:16px">Статус по отделам</h4>' +
+      statusGridHtml(ev) +
+      '</div>' +
+      '<div class="detail-block">' +
+      '<h4>Жизненный цикл трека «' + escapeHtml(ev.track) + '»</h4>' +
+      stageDetailTable(ev) +
+      '</div>' +
+      '</div></td></tr>';
+  }
+
+  function rowHtml(ev) {
+    var st = computed[ev.id];
+    var deps = departmentsResponsibleNow(ev, st.stage);
+    var isExpanded = String(expandedId) === String(ev.id);
+    var main = '<tr class="event-row' + (isExpanded ? ' expanded' : '') + '" data-id="' + escapeHtml(ev.id) + '">' +
+      '<td class="col-title"><div class="ev-title">' + escapeHtml(ev.title) + '</div><div class="ev-sub">' + escapeHtml(ev.id) + ' · ' + escapeHtml(ev.category) + '</div></td>' +
+      '<td><span class="track-badge">' + escapeHtml(ev.track) + '</span></td>' +
+      '<td class="dates-cell">' + fmtDate(ev.dateStart) + (ev.dateStart !== ev.dateEnd ? ' – ' + fmtDate(ev.dateEnd) : '') + '</td>' +
+      '<td class="tminus-cell' + (st.stage === 'Проведение' ? ' tminus-now' : '') + '">' + tminusLabel(st) + '</td>' +
+      '<td>' + escapeHtml(st.stage) + '</td>' +
+      '<td><div class="dept-chips">' + (deps.length ? deps.map(function (d) { return '<span class="dept-chip">' + escapeHtml(d) + '</span>'; }).join('') : '<span class="dept-chip">—</span>') + '</div></td>' +
+      '<td>' + (ev.riskNote ? '<span class="risk-flag" title="' + escapeHtml(ev.riskNote) + '">⚠</span>' : '') + '</td>' +
+      '<td class="chevron">' + (isExpanded ? '▾' : '▸') + '</td>' +
+      '</tr>';
+    return main + (isExpanded ? detailRowHtml(ev) : '');
+  }
+
+  function render() {
+    var filtered = events.filter(matchesFilters);
+    filtered.sort(function (a, b) {
+      var va = sortValue(a), vb = sortValue(b);
+      if (va < vb) return -1 * sort.dir;
+      if (va > vb) return 1 * sort.dir;
+      return 0;
+    });
+
+    document.getElementById('result-count').textContent = filtered.length + ' из ' + events.length;
+
+    var body = document.getElementById('registry-body');
+    if (filtered.length === 0) {
+      body.innerHTML = '<tr><td colspan="8"><div class="empty-state">Ничего не найдено по этому запросу и фильтрам.<br><button type="button" id="reset-btn">Сбросить всё</button></div></td></tr>';
+      document.getElementById('reset-btn').addEventListener('click', resetAll);
+      return;
+    }
+
+    body.innerHTML = filtered.map(rowHtml).join('');
+    body.querySelectorAll('tr.event-row').forEach(function (tr) {
+      tr.addEventListener('click', function () {
+        var id = tr.getAttribute('data-id');
+        expandedId = (expandedId === id) ? null : id;
+        render();
+      });
+    });
+  }
+
+  function resetAll() {
+    state = { q: '', category: 'all', track: 'all', stage: 'all', dept: 'all', riskOnly: false };
+    document.getElementById('search').value = '';
+    ['f-category', 'f-track', 'f-stage', 'f-dept'].forEach(function (id) { document.getElementById(id).value = 'all'; });
+    document.getElementById('f-risk').classList.remove('active');
+    render();
+  }
+
+  document.getElementById('search').addEventListener('input', function (e) {
+    state.q = e.target.value;
+    render();
+  });
+
+  setupFilters();
+  render();
+})();
+</script>
+</body>
+</html>

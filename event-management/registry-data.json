@@ -1,0 +1,1895 @@
+{
+  "meta": {
+    "generated": "2026-08-09",
+    "source": "docs/ges2_event_pm_template.xlsx",
+    "totalEvents": 72
+  },
+  "categories": [
+    "Концерт",
+    "Танцевальный показ",
+    "Медиаторский тур",
+    "Выставка",
+    "Кинопоказ",
+    "Лекция",
+    "Прочее"
+  ],
+  "tracks": [
+    "Лёгкий",
+    "Средний",
+    "Тяжёлый"
+  ],
+  "stagesOrder": [
+    "Заявка/утверждение",
+    "Бронирование площадки и ресурсов",
+    "Продакшн",
+    "Маркетинг/PR-план",
+    "Финальная неделя",
+    "Проведение",
+    "Пост-ивент"
+  ],
+  "departments": [
+    "Продакшн/техника",
+    "Маркетинг",
+    "PR",
+    "Площадка",
+    "Питание",
+    "Охрана"
+  ],
+  "statusValues": [
+    "Не начат",
+    "Зелёный",
+    "Жёлтый",
+    "Красный",
+    "Н/Д"
+  ],
+  "stagesByTrack": {
+    "Лёгкий": [
+      {
+        "stage": "Заявка/утверждение",
+        "startTMinus": -45,
+        "deadlineTMinus": -35,
+        "responsible": "Продюсер",
+        "comment": "Согласование темы/спикера, бюджет при наличии"
+      },
+      {
+        "stage": "Бронирование площадки и ресурсов",
+        "startTMinus": -34,
+        "deadlineTMinus": -21,
+        "responsible": "Продюсер + Площадка",
+        "comment": "Аудитория/зал, техника по минимуму"
+      },
+      {
+        "stage": "Маркетинг/PR-план",
+        "startTMinus": -20,
+        "deadlineTMinus": -7,
+        "responsible": "Маркетинг",
+        "comment": "Анонс в календаре и соцсетях, без спецкампании"
+      },
+      {
+        "stage": "Финальная неделя",
+        "startTMinus": -7,
+        "deadlineTMinus": -1,
+        "responsible": "Продюсер",
+        "comment": "Финальная сверка тайминга, без брифинга охраны/питания"
+      },
+      {
+        "stage": "Проведение",
+        "startTMinus": 0,
+        "deadlineTMinus": 0,
+        "responsible": "Продюсер",
+        "comment": "—"
+      },
+      {
+        "stage": "Пост-ивент",
+        "startTMinus": 1,
+        "deadlineTMinus": 5,
+        "responsible": "Продюсер",
+        "comment": "Короткий отчёт: явка, обратная связь"
+      }
+    ],
+    "Средний": [
+      {
+        "stage": "Заявка/утверждение",
+        "startTMinus": -60,
+        "deadlineTMinus": -45,
+        "responsible": "Продюсер",
+        "comment": "Согласование концепции и бюджета"
+      },
+      {
+        "stage": "Бронирование площадки и ресурсов",
+        "startTMinus": -44,
+        "deadlineTMinus": -25,
+        "responsible": "Продюсер + Площадка",
+        "comment": "Зал/пространство, базовая техника"
+      },
+      {
+        "stage": "Продакшн",
+        "startTMinus": -30,
+        "deadlineTMinus": -10,
+        "responsible": "Продакшн",
+        "comment": "Монтаж/техническое обеспечение показа или экспозиции"
+      },
+      {
+        "stage": "Маркетинг/PR-план",
+        "startTMinus": -30,
+        "deadlineTMinus": -3,
+        "responsible": "Маркетинг + PR",
+        "comment": "Анонс, пресс-лист при необходимости"
+      },
+      {
+        "stage": "Финальная неделя",
+        "startTMinus": -7,
+        "deadlineTMinus": -1,
+        "responsible": "Продюсер",
+        "comment": "Брифинг площадки, проверка готовности зала"
+      },
+      {
+        "stage": "Проведение",
+        "startTMinus": 0,
+        "deadlineTMinus": 0,
+        "responsible": "Продюсер + Площадка",
+        "comment": "—"
+      },
+      {
+        "stage": "Пост-ивент",
+        "startTMinus": 1,
+        "deadlineTMinus": 7,
+        "responsible": "Продюсер",
+        "comment": "Демонтаж, отчёт по посещаемости и медиаохвату"
+      }
+    ],
+    "Тяжёлый": [
+      {
+        "stage": "Заявка/утверждение",
+        "startTMinus": -90,
+        "deadlineTMinus": -70,
+        "responsible": "Продюсер",
+        "comment": "Утверждение концепции, бюджета, состава участников"
+      },
+      {
+        "stage": "Бронирование площадки и ресурсов",
+        "startTMinus": -69,
+        "deadlineTMinus": -40,
+        "responsible": "Продюсер + Площадка",
+        "comment": "Основной зал/двор, расширенная техника"
+      },
+      {
+        "stage": "Продакшн",
+        "startTMinus": -45,
+        "deadlineTMinus": -14,
+        "responsible": "Продакшн",
+        "comment": "Сцена, свет, звук, монтаж экспозиции"
+      },
+      {
+        "stage": "Маркетинг/PR-план",
+        "startTMinus": -45,
+        "deadlineTMinus": -5,
+        "responsible": "Маркетинг + PR",
+        "comment": "Полная кампания: анонс, реклама, пресса, инфлюенсеры"
+      },
+      {
+        "stage": "Финальная неделя",
+        "startTMinus": -7,
+        "deadlineTMinus": -1,
+        "responsible": "Продюсер",
+        "comment": "Брифинг охраны (потоки, зоны), питания (объём, тайминг), площадки, финальный техпрогон"
+      },
+      {
+        "stage": "Проведение",
+        "startTMinus": 0,
+        "deadlineTMinus": 0,
+        "responsible": "Все отделы",
+        "comment": "Продюсер координирует, охрана/питание/площадка — на месте"
+      },
+      {
+        "stage": "Пост-ивент",
+        "startTMinus": 1,
+        "deadlineTMinus": 10,
+        "responsible": "Продюсер",
+        "comment": "Демонтаж, разбор инцидентов, отчёт по всем метрикам"
+      }
+    ]
+  },
+  "raci": {
+    "Лёгкий": {
+      "Заявка/утверждение": {
+        "Продюсер": "R",
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null,
+        "Продакшн/техника": null
+      },
+      "Бронирование площадки и ресурсов": {
+        "Продюсер": "A",
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": "R",
+        "Питание": null,
+        "Охрана": null,
+        "Продакшн/техника": null
+      },
+      "Маркетинг/PR-план": {
+        "Продюсер": "A",
+        "Маркетинг": "R",
+        "PR": "I",
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null,
+        "Продакшн/техника": null
+      },
+      "Финальная неделя": {
+        "Продюсер": "R",
+        "Маркетинг": "I",
+        "PR": null,
+        "Площадка": "I",
+        "Питание": null,
+        "Охрана": null,
+        "Продакшн/техника": null
+      },
+      "Проведение": {
+        "Продюсер": "R",
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": "C",
+        "Питание": null,
+        "Охрана": null,
+        "Продакшн/техника": null
+      },
+      "Пост-ивент": {
+        "Продюсер": "R",
+        "Маркетинг": "I",
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null,
+        "Продакшн/техника": null
+      }
+    },
+    "Средний": {
+      "Заявка/утверждение": {
+        "Продюсер": "R",
+        "Маркетинг": "C",
+        "PR": "C",
+        "Площадка": "C",
+        "Питание": null,
+        "Охрана": null,
+        "Продакшн/техника": null
+      },
+      "Бронирование площадки и ресурсов": {
+        "Продюсер": "A",
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": "R",
+        "Питание": null,
+        "Охрана": null,
+        "Продакшн/техника": "C"
+      },
+      "Продакшн": {
+        "Продюсер": "A",
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": "C",
+        "Питание": null,
+        "Охрана": null,
+        "Продакшн/техника": "R"
+      },
+      "Маркетинг/PR-план": {
+        "Продюсер": "A",
+        "Маркетинг": "R",
+        "PR": "R",
+        "Площадка": "I",
+        "Питание": null,
+        "Охрана": null,
+        "Продакшн/техника": null
+      },
+      "Финальная неделя": {
+        "Продюсер": "R",
+        "Маркетинг": "I",
+        "PR": "I",
+        "Площадка": "A",
+        "Питание": "I",
+        "Охрана": "I",
+        "Продакшн/техника": "C"
+      },
+      "Проведение": {
+        "Продюсер": "R",
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": "C",
+        "Питание": null,
+        "Охрана": null,
+        "Продакшн/техника": "C"
+      },
+      "Пост-ивент": {
+        "Продюсер": "R",
+        "Маркетинг": "C",
+        "PR": "C",
+        "Площадка": "I",
+        "Питание": null,
+        "Охрана": null,
+        "Продакшн/техника": "I"
+      }
+    },
+    "Тяжёлый": {
+      "Заявка/утверждение": {
+        "Продюсер": "R",
+        "Маркетинг": "C",
+        "PR": "C",
+        "Площадка": "C",
+        "Питание": "C",
+        "Охрана": "C",
+        "Продакшн/техника": "C"
+      },
+      "Бронирование площадки и ресурсов": {
+        "Продюсер": "A",
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": "R",
+        "Питание": "I",
+        "Охрана": "I",
+        "Продакшн/техника": "C"
+      },
+      "Продакшн": {
+        "Продюсер": "A",
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": "C",
+        "Питание": null,
+        "Охрана": null,
+        "Продакшн/техника": "R"
+      },
+      "Маркетинг/PR-план": {
+        "Продюсер": "A",
+        "Маркетинг": "R",
+        "PR": "R",
+        "Площадка": "I",
+        "Питание": null,
+        "Охрана": null,
+        "Продакшн/техника": "I"
+      },
+      "Финальная неделя": {
+        "Продюсер": "A",
+        "Маркетинг": "I",
+        "PR": "I",
+        "Площадка": "R",
+        "Питание": "R",
+        "Охрана": "R",
+        "Продакшн/техника": "C"
+      },
+      "Проведение": {
+        "Продюсер": "R",
+        "Маркетинг": "I",
+        "PR": "I",
+        "Площадка": "C",
+        "Питание": "C",
+        "Охрана": "C",
+        "Продакшн/техника": "C"
+      },
+      "Пост-ивент": {
+        "Продюсер": "R",
+        "Маркетинг": "C",
+        "PR": "C",
+        "Площадка": "C",
+        "Питание": "C",
+        "Охрана": "C",
+        "Продакшн/техника": "C"
+      }
+    }
+  },
+  "events": [
+    {
+      "id": 1,
+      "title": "Курс подготовки глухих музейных специалистов",
+      "category": "Лекция",
+      "track": "Лёгкий",
+      "dateStart": "2025-10-01",
+      "dateEnd": "2026-08-31",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/training-course-for-deaf-museum-professionals"
+    },
+    {
+      "id": 2,
+      "title": "Хадзар мечты",
+      "category": "Медиаторский тур",
+      "track": "Лёгкий",
+      "dateStart": "2026-04-23",
+      "dateEnd": "2026-09-13",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": "Выставка закрывается 13.09 — почти одновременно с «Москва — Ханой» (20.09).",
+      "link": "https://ges-2.org/khadzar-of-dreams-mediated-tour"
+    },
+    {
+      "id": 3,
+      "title": "Хадзар мечты",
+      "category": "Выставка",
+      "track": "Тяжёлый",
+      "dateStart": "2026-04-23",
+      "dateEnd": "2026-09-13",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": "Выставка закрывается 13.09 — почти одновременно с «Москва — Ханой» (20.09).",
+      "link": "https://ges-2.org/projects/khadzar-of-dreams"
+    },
+    {
+      "id": 4,
+      "title": "Лес, полный красот и чудес",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-05-09",
+      "dateEnd": "2026-08-29",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/forest-full-of-beauty-and-wonders"
+    },
+    {
+      "id": 5,
+      "title": "Москва — Ханой. Ландшафты оптимизма",
+      "category": "Выставка",
+      "track": "Тяжёлый",
+      "dateStart": "2026-05-21",
+      "dateEnd": "2026-09-20",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": "Закрытие 20.09 — окно на монтаж следующей выставки («Натюрморт…», открытие 15.10) около месяца.",
+      "link": "https://ges-2.org/projects/moscow-hanoi-landscapes-of-optimism"
+    },
+    {
+      "id": 6,
+      "title": "Москва — Ханой. Ландшафты оптимизма",
+      "category": "Медиаторский тур",
+      "track": "Лёгкий",
+      "dateStart": "2026-05-21",
+      "dateEnd": "2026-09-20",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": "Закрытие 20.09 — окно на монтаж следующей выставки («Натюрморт…», открытие 15.10) около месяца.",
+      "link": "https://ges-2.org/moscow-hanoi-landscapes-of-optimism-mediated-tour"
+    },
+    {
+      "id": 7,
+      "title": "Игры на лужайке",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-05-30",
+      "dateEnd": "2026-10-01",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/lawn-games"
+    },
+    {
+      "id": 8,
+      "title": "Фотооснова. Лаборатория печатных практик для художников",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-06-01",
+      "dateEnd": "2026-10-30",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/photo-basis-printmaking-practices-lab-for-artists"
+    },
+    {
+      "id": 9,
+      "title": "Как тебе тут?",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-06-02",
+      "dateEnd": "2026-09-20",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/how-do-you-like-it-here"
+    },
+    {
+      "id": 10,
+      "title": "Весь мир здесь обретает дом: по следам Тагора",
+      "category": "Выставка",
+      "track": "Тяжёлый",
+      "dateStart": "2026-06-25",
+      "dateEnd": "2026-08-23",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": "Закрытие 23.08 — одна из трёх почти одновременно закрывающихся выставок.",
+      "link": "https://ges-2.org/projects/the-world-in-a-single-nest-following-the-way-of-tagore"
+    },
+    {
+      "id": 11,
+      "title": "В тени баньяна",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-06-25",
+      "dateEnd": "2026-08-23",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/in-the-shade-of-the-banyan-tree"
+    },
+    {
+      "id": 12,
+      "title": "Весь мир здесь обретает дом: по следам Тагора",
+      "category": "Медиаторский тур",
+      "track": "Лёгкий",
+      "dateStart": "2026-06-25",
+      "dateEnd": "2026-08-23",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": "Закрытие 23.08 — одна из трёх почти одновременно закрывающихся выставок.",
+      "link": "https://ges-2.org/the-world-in-a-single-nest-following-the-way-of-tagore-mediated-tour"
+    },
+    {
+      "id": 13,
+      "title": "Роща чувств. Новое звучание",
+      "category": "Танцевальный показ",
+      "track": "Средний",
+      "dateStart": "2026-06-28",
+      "dateEnd": "2026-08-30",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/forest-of-feelings-the-new-sound"
+    },
+    {
+      "id": 14,
+      "title": "Палисадник-2026",
+      "category": "Выставка",
+      "track": "Тяжёлый",
+      "dateStart": "2026-07-01",
+      "dateEnd": "2026-09-30",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/projects/front-garden-2026"
+    },
+    {
+      "id": 15,
+      "title": "Как стать меньше мухи",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-07-02",
+      "dateEnd": "2026-08-20",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/how-to-become-smaller-than-a-fly"
+    },
+    {
+      "id": 16,
+      "title": "Вне стен: прогулка по Музеону",
+      "category": "Медиаторский тур",
+      "track": "Лёгкий",
+      "dateStart": "2026-07-07",
+      "dateEnd": "2026-09-28",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/outside-the-walls-a-walk-in-muzeon-park"
+    },
+    {
+      "id": 17,
+      "title": "К сердцу земли. Учиться у природы",
+      "category": "Медиаторский тур",
+      "track": "Лёгкий",
+      "dateStart": "2026-07-12",
+      "dateEnd": "2026-08-23",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/to-the-heart-of-the-earth-learning-from-nature"
+    },
+    {
+      "id": 18,
+      "title": "Программа для живописцев и скульпторов. Открытый набор на второй сезон",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-07-13",
+      "dateEnd": "2026-08-31",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/programme-for-painters-and-sculptors-open-call-for-season-2"
+    },
+    {
+      "id": 19,
+      "title": "Йога в Роще",
+      "category": "Медиаторский тур",
+      "track": "Лёгкий",
+      "dateStart": "2026-07-18",
+      "dateEnd": "2026-08-26",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/yoga-in-the-forest"
+    },
+    {
+      "id": 20,
+      "title": "За контурами моды. Летняя программа медиации",
+      "category": "Лекция",
+      "track": "Лёгкий",
+      "dateStart": "2026-07-26",
+      "dateEnd": "2026-08-26",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/beyond-fashion-contours-mediation-summer-programme"
+    },
+    {
+      "id": 21,
+      "title": "Открытый факультет медиации. Владивосток/Калининград. Открытый набор",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-07-29",
+      "dateEnd": "2026-08-11",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/open-faculty-of-mediation-vladivostok-kaliningrad-open-call"
+    },
+    {
+      "id": 22,
+      "title": "След и ритм",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-08-04",
+      "dateEnd": "2026-08-13",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/trace-and-rhythm"
+    },
+    {
+      "id": 23,
+      "title": "Что с лицом?",
+      "category": "Кинопоказ",
+      "track": "Средний",
+      "dateStart": "2026-08-06",
+      "dateEnd": "2026-08-19",
+      "producer": null,
+      "sourceStageHint": "Проведение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/projects/what-s-with-the-face"
+    },
+    {
+      "id": 24,
+      "title": "Другой Тагор: творческая вселенная от экспериментов в графике до музыкальной революции",
+      "category": "Лекция",
+      "track": "Лёгкий",
+      "dateStart": "2026-08-11",
+      "dateEnd": "2026-08-18",
+      "producer": null,
+      "sourceStageHint": "Финальная неделя",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/the-other-tagore-the-creative-universe"
+    },
+    {
+      "id": 25,
+      "title": "Десять",
+      "category": "Кинопоказ",
+      "track": "Средний",
+      "dateStart": "2026-08-12",
+      "dateEnd": "2026-08-12",
+      "producer": null,
+      "sourceStageHint": "Маркетинг/PR-план",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/ten"
+    },
+    {
+      "id": 26,
+      "title": "Шепот сердца",
+      "category": "Кинопоказ",
+      "track": "Средний",
+      "dateStart": "2026-08-13",
+      "dateEnd": "2026-08-13",
+      "producer": null,
+      "sourceStageHint": "Маркетинг/PR-план",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/whisper-of-the-heart"
+    },
+    {
+      "id": 27,
+      "title": "Комиссар",
+      "category": "Кинопоказ",
+      "track": "Средний",
+      "dateStart": "2026-08-13",
+      "dateEnd": "2026-08-13",
+      "producer": null,
+      "sourceStageHint": "Маркетинг/PR-план",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/commissar"
+    },
+    {
+      "id": 28,
+      "title": "Медиация с Румой Чоудхури",
+      "category": "Медиаторский тур",
+      "track": "Лёгкий",
+      "dateStart": "2026-08-14",
+      "dateEnd": "2026-08-15",
+      "producer": null,
+      "sourceStageHint": "Финальная неделя",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/mediation-with-ruma-choudhury"
+    },
+    {
+      "id": 29,
+      "title": "Самурай и пленник",
+      "category": "Кинопоказ",
+      "track": "Средний",
+      "dateStart": "2026-08-14",
+      "dateEnd": "2026-08-14",
+      "producer": null,
+      "sourceStageHint": "Маркетинг/PR-план",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/the-samurai-and-the-prisoner"
+    },
+    {
+      "id": 30,
+      "title": "Где приземлиться",
+      "category": "Кинопоказ",
+      "track": "Средний",
+      "dateStart": "2026-08-14",
+      "dateEnd": "2026-08-14",
+      "producer": null,
+      "sourceStageHint": "Маркетинг/PR-план",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/where-to-land"
+    },
+    {
+      "id": 31,
+      "title": "Слово и образ: как читать индийских авторов сегодня",
+      "category": "Лекция",
+      "track": "Лёгкий",
+      "dateStart": "2026-08-15",
+      "dateEnd": "2026-08-15",
+      "producer": null,
+      "sourceStageHint": "Финальная неделя",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/word-and-image-how-to-read-indian-authors-today"
+    },
+    {
+      "id": 32,
+      "title": "Генеральная линия",
+      "category": "Кинопоказ",
+      "track": "Средний",
+      "dateStart": "2026-08-15",
+      "dateEnd": "2026-08-15",
+      "producer": null,
+      "sourceStageHint": "Маркетинг/PR-план",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/the-general-line"
+    },
+    {
+      "id": 33,
+      "title": "Полдень шахмат",
+      "category": "Лекция",
+      "track": "Лёгкий",
+      "dateStart": "2026-08-16",
+      "dateEnd": "2026-08-16",
+      "producer": null,
+      "sourceStageHint": "Маркетинг/PR-план",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/afternoon-of-chess"
+    },
+    {
+      "id": 34,
+      "title": "Бумага, созданная рекой",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-08-16",
+      "dateEnd": "2026-08-16",
+      "producer": null,
+      "sourceStageHint": "Маркетинг/PR-план",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/paper-created-by-the-river"
+    },
+    {
+      "id": 35,
+      "title": "Девушки",
+      "category": "Кинопоказ",
+      "track": "Средний",
+      "dateStart": "2026-08-16",
+      "dateEnd": "2026-08-16",
+      "producer": null,
+      "sourceStageHint": "Маркетинг/PR-план",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/the-girls"
+    },
+    {
+      "id": 36,
+      "title": "Красный гаолян",
+      "category": "Кинопоказ",
+      "track": "Средний",
+      "dateStart": "2026-08-16",
+      "dateEnd": "2026-08-16",
+      "producer": null,
+      "sourceStageHint": "Маркетинг/PR-план",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/red-sorghum"
+    },
+    {
+      "id": 37,
+      "title": "Тема",
+      "category": "Кинопоказ",
+      "track": "Средний",
+      "dateStart": "2026-08-18",
+      "dateEnd": "2026-08-18",
+      "producer": null,
+      "sourceStageHint": "Маркетинг/PR-план",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/the-theme"
+    },
+    {
+      "id": 38,
+      "title": "Земля",
+      "category": "Кинопоказ",
+      "track": "Средний",
+      "dateStart": "2026-08-19",
+      "dateEnd": "2026-08-19",
+      "producer": null,
+      "sourceStageHint": "Продакшн",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/earth-film"
+    },
+    {
+      "id": 39,
+      "title": "Небывальщина",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-08-23",
+      "dateEnd": "2026-08-30",
+      "producer": null,
+      "sourceStageHint": "Маркетинг/PR-план",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/imaginary-creatures"
+    },
+    {
+      "id": 40,
+      "title": "ГЭС-2 Саундсистем 4. Mind*",
+      "category": "Лекция",
+      "track": "Тяжёлый",
+      "dateStart": "2026-08-24",
+      "dateEnd": "2026-08-26",
+      "producer": null,
+      "sourceStageHint": "Продакшн",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": "Крупный музыкальный уикенд (24–30.08) — пиковая нагрузка на посетительский сервис и парковку.",
+      "link": "https://ges-2.org/ges-2-soundsystem-4-mind"
+    },
+    {
+      "id": 41,
+      "title": "ГЭС-2 Саундсистем 4",
+      "category": "Лекция",
+      "track": "Тяжёлый",
+      "dateStart": "2026-08-24",
+      "dateEnd": "2026-08-30",
+      "producer": null,
+      "sourceStageHint": "Продакшн",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": "Крупный музыкальный уикенд (24–30.08) — пиковая нагрузка на посетительский сервис и парковку.",
+      "link": "https://ges-2.org/projects/ges-2-soundsystem-4"
+    },
+    {
+      "id": 42,
+      "title": "ГЭС-2 Саундсистем 4. Body*",
+      "category": "Лекция",
+      "track": "Тяжёлый",
+      "dateStart": "2026-08-24",
+      "dateEnd": "2026-08-30",
+      "producer": null,
+      "sourceStageHint": "Продакшн",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": "Крупный музыкальный уикенд (24–30.08) — пиковая нагрузка на посетительский сервис и парковку.",
+      "link": "https://ges-2.org/ges-2-soundsystem-4-body"
+    },
+    {
+      "id": 43,
+      "title": "ГЭС-2 Саундсистем 4. Spirit*",
+      "category": "Лекция",
+      "track": "Тяжёлый",
+      "dateStart": "2026-08-30",
+      "dateEnd": "2026-08-30",
+      "producer": null,
+      "sourceStageHint": "Продакшн",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": "Крупный музыкальный уикенд (24–30.08) — пиковая нагрузка на посетительский сервис и парковку.",
+      "link": "https://ges-2.org/ges-2-soundsystem-4-spirit"
+    },
+    {
+      "id": 44,
+      "title": "Песни Палисадника",
+      "category": "Лекция",
+      "track": "Лёгкий",
+      "dateStart": "2026-08-30",
+      "dateEnd": "2026-08-30",
+      "producer": null,
+      "sourceStageHint": "Бронирование площадки и ресурсов",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/songs-of-the-front-garden"
+    },
+    {
+      "id": 45,
+      "title": "Технический сценарий",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-09-01",
+      "dateEnd": "2026-12-10",
+      "producer": null,
+      "sourceStageHint": "Бронирование площадки и ресурсов",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/technical-script"
+    },
+    {
+      "id": 46,
+      "title": "Вагон пользы и еще тележка",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-09-04",
+      "dateEnd": "2026-11-27",
+      "producer": null,
+      "sourceStageHint": "Бронирование площадки и ресурсов",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/loads-of-benefits-and-a-cartload"
+    },
+    {
+      "id": 47,
+      "title": "Субботние игры на Платформах",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-09-05",
+      "dateEnd": "2026-11-28",
+      "producer": null,
+      "sourceStageHint": "Бронирование площадки и ресурсов",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/saturday-games"
+    },
+    {
+      "id": 48,
+      "title": "1=52",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-09-06",
+      "dateEnd": "2026-09-27",
+      "producer": null,
+      "sourceStageHint": "Бронирование площадки и ресурсов",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/1-52"
+    },
+    {
+      "id": 49,
+      "title": "Гала. Пять лет музыки",
+      "category": "Концерт",
+      "track": "Тяжёлый",
+      "dateStart": "2026-09-07",
+      "dateEnd": "2026-12-16",
+      "producer": null,
+      "sourceStageHint": "Продакшн",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/projects/gala-five-years-of-music"
+    },
+    {
+      "id": 50,
+      "title": "Минусболеро",
+      "category": "Концерт",
+      "track": "Тяжёлый",
+      "dateStart": "2026-09-07",
+      "dateEnd": "2026-09-07",
+      "producer": null,
+      "sourceStageHint": "Продакшн",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/minusbolero"
+    },
+    {
+      "id": 51,
+      "title": "Принты и чудики",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-09-09",
+      "dateEnd": "2026-09-23",
+      "producer": null,
+      "sourceStageHint": "Бронирование площадки и ресурсов",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/prints-and-oddballs"
+    },
+    {
+      "id": 52,
+      "title": "Божественная комедия",
+      "category": "Выставка",
+      "track": "Тяжёлый",
+      "dateStart": "2026-09-10",
+      "dateEnd": "2026-09-10",
+      "producer": null,
+      "sourceStageHint": "Продакшн",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/projects/divine-comedy"
+    },
+    {
+      "id": 53,
+      "title": "Ба-бах!",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-09-10",
+      "dateEnd": "2026-11-12",
+      "producer": null,
+      "sourceStageHint": "Бронирование площадки и ресурсов",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/boom-bach"
+    },
+    {
+      "id": 54,
+      "title": "Рогатые и хвостатые",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-09-10",
+      "dateEnd": "2026-11-12",
+      "producer": null,
+      "sourceStageHint": "Бронирование площадки и ресурсов",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/horned-and-tailed"
+    },
+    {
+      "id": 55,
+      "title": "Йога выходного дня",
+      "category": "Лекция",
+      "track": "Средний",
+      "dateStart": "2026-09-12",
+      "dateEnd": "2026-11-28",
+      "producer": null,
+      "sourceStageHint": "Бронирование площадки и ресурсов",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": true,
+      "riskNote": null,
+      "link": "https://ges-2.org/weekend-yoga"
+    },
+    {
+      "id": 56,
+      "title": "Домашний театр",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-09-12",
+      "dateEnd": "2026-11-29",
+      "producer": null,
+      "sourceStageHint": "Бронирование площадки и ресурсов",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/home-theatre"
+    },
+    {
+      "id": 57,
+      "title": "Вижу смыслы в каждой травке",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-09-12",
+      "dateEnd": "2026-12-12",
+      "producer": null,
+      "sourceStageHint": "Бронирование площадки и ресурсов",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/i-see-meaning-in-every-blade-of-grass"
+    },
+    {
+      "id": 58,
+      "title": "Семейная йога",
+      "category": "Медиаторский тур",
+      "track": "Лёгкий",
+      "dateStart": "2026-09-13",
+      "dateEnd": "2026-09-13",
+      "producer": null,
+      "sourceStageHint": "Заявка/утверждение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/family-yoga"
+    },
+    {
+      "id": 59,
+      "title": "И все-таки она вертится",
+      "category": "Концерт",
+      "track": "Тяжёлый",
+      "dateStart": "2026-09-14",
+      "dateEnd": "2026-09-14",
+      "producer": null,
+      "sourceStageHint": "Продакшн",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/and-yet-it-moves-2026"
+    },
+    {
+      "id": 60,
+      "title": "Город, который придумал я",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-09-16",
+      "dateEnd": "2026-12-02",
+      "producer": null,
+      "sourceStageHint": "Заявка/утверждение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/the-city-i-made-up"
+    },
+    {
+      "id": 61,
+      "title": "Фестиваль коллективных фильмов",
+      "category": "Кинопоказ",
+      "track": "Тяжёлый",
+      "dateStart": "2026-09-17",
+      "dateEnd": "2026-10-01",
+      "producer": null,
+      "sourceStageHint": "Продакшн",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/projects/festival-of-collective-films"
+    },
+    {
+      "id": 62,
+      "title": "Излучение голоса",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-09-19",
+      "dateEnd": "2026-11-21",
+      "producer": null,
+      "sourceStageHint": "Заявка/утверждение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/voice-radiation"
+    },
+    {
+      "id": 63,
+      "title": "В полный голос. Осень 2026",
+      "category": "Лекция",
+      "track": "Лёгкий",
+      "dateStart": "2026-09-19",
+      "dateEnd": "2026-12-07",
+      "producer": null,
+      "sourceStageHint": "Заявка/утверждение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/projects/in-a-loud-voice-autumn-2026"
+    },
+    {
+      "id": 64,
+      "title": "А и Б сидели на трубе",
+      "category": "Прочее",
+      "track": "Средний",
+      "dateStart": "2026-09-22",
+      "dateEnd": "2026-12-08",
+      "producer": null,
+      "sourceStageHint": "Бронирование площадки и ресурсов",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": true,
+      "riskNote": null,
+      "link": "https://ges-2.org/a-and-b-were-sitting-on-a-pipe"
+    },
+    {
+      "id": 65,
+      "title": "Лесные человечки",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-09-22",
+      "dateEnd": "2026-12-08",
+      "producer": null,
+      "sourceStageHint": "Заявка/утверждение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/forest-people"
+    },
+    {
+      "id": 66,
+      "title": "Как управлять хаосом?",
+      "category": "Прочее",
+      "track": "Средний",
+      "dateStart": "2026-09-23",
+      "dateEnd": "2026-12-02",
+      "producer": null,
+      "sourceStageHint": "Заявка/утверждение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": true,
+      "riskNote": null,
+      "link": "https://ges-2.org/how-to-control-chaos"
+    },
+    {
+      "id": 67,
+      "title": "Эффект бабочки",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-10-04",
+      "dateEnd": "2026-10-25",
+      "producer": null,
+      "sourceStageHint": "Заявка/утверждение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/butterfly-effect"
+    },
+    {
+      "id": 68,
+      "title": "Йога смеха",
+      "category": "Медиаторский тур",
+      "track": "Средний",
+      "dateStart": "2026-10-08",
+      "dateEnd": "2026-11-26",
+      "producer": null,
+      "sourceStageHint": "Заявка/утверждение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": true,
+      "riskNote": null,
+      "link": "https://ges-2.org/laughter-yoga"
+    },
+    {
+      "id": 69,
+      "title": "Мастерская кикимор",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-10-11",
+      "dateEnd": "2026-10-11",
+      "producer": null,
+      "sourceStageHint": "Заявка/утверждение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/kikimoras-workshop"
+    },
+    {
+      "id": 70,
+      "title": "Натюрморт. Портрет. Пейзаж. После жанра",
+      "category": "Выставка",
+      "track": "Тяжёлый",
+      "dateStart": "2026-10-15",
+      "dateEnd": "2027-04-25",
+      "producer": null,
+      "sourceStageHint": "Бронирование площадки и ресурсов",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": "Открытие только 15.10 — после почти месячного окна на монтаж/демонтаж.",
+      "link": "https://ges-2.org/projects/crisis-of-genre-still-life-portrait-landscape"
+    },
+    {
+      "id": 71,
+      "title": "Ламповый Новый год",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-10-19",
+      "dateEnd": "2026-12-07",
+      "producer": null,
+      "sourceStageHint": "Заявка/утверждение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/analogue-new-year"
+    },
+    {
+      "id": 72,
+      "title": "След в воздухе",
+      "category": "Прочее",
+      "track": "Лёгкий",
+      "dateStart": "2026-11-08",
+      "dateEnd": "2026-11-29",
+      "producer": null,
+      "sourceStageHint": "Заявка/утверждение",
+      "departments": {
+        "Продакшн/техника": null,
+        "Маркетинг": null,
+        "PR": null,
+        "Площадка": null,
+        "Питание": null,
+        "Охрана": null
+      },
+      "paid": false,
+      "riskNote": null,
+      "link": "https://ges-2.org/a-trace-in-the-air"
+    }
+  ]
+}

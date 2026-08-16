@@ -1,0 +1,14 @@
+# macOS
+.DS_Store
+
+# Временные файлы Word/Excel
+~$*
+*.tmp
+
+# Python
+__pycache__/
+*.pyc
+
+# Excel/Word lock files (открытые в приложении)
+~$*.xlsx
+~$*.docx

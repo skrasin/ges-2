@@ -1,0 +1,132 @@
+/*
+ * ГЭС-2 — дизайн-токены
+ * ---------------------
+ * Извлечены обратным инжинирингом реального сайта ges-2.org
+ * (аудит getComputedStyle на живой странице, вьюпорт 1280×720, 09.08.2026).
+ * Это НЕ выдуманная палитра — все значения ниже измерены на проде.
+ *
+ * Методология: сайт на Next.js/styled-components, вся вёрстка на
+ * flat-градации чёрное/белое + один вариативный шрифт в двух начертаниях
+ * (Text и Display). Никакого внешнего CSS-файла с токенами на сайте нет —
+ * шрифтовая и отступная сетка масштабируется через inline calc()-формулы
+ * относительно ширины вьюпорта (fluid design, не брейкпоинты + rem).
+ *
+ * ВАЖНО про шрифт: "Diagramatika Text/Display" — проприетарный шрифт
+ * фонда V–A–C. Файлы шрифта сюда не включены и не должны копироваться без
+ * лицензии — используйте предоставленный fallback-стек для любых макетов
+ * не на официальном домене, либо запросите файлы у ГЭС-2 напрямую.
+ */
+
+:root {
+  /* ---- Fluid scale ----
+     Сайт держит два эталона: 1440px (десктоп) и 375px (мобильный).
+     Любой размер = базовое_значение_в_px * ges2-scale.
+     На десктопе рост ограничен потолком 1640px (контент не растягивается
+     до бесконечности на очень широких экранах).
+     Финальное "/ 1px" не опечатка: 100vw/1440 — это длина, а не число, и
+     умножать длину на длину в calc() нельзя (свойство молча станет
+     невалидным и откатится к initial-значению). Деление на 1px превращает
+     длину в безразмерное число, которое уже можно умножать на любой px. */
+  --ges2-scale: calc(min(100vw, 1640px) / 1440 / 1px);
+}
+
+@media (max-width: 767px) {
+  :root {
+    --ges2-scale: calc(100vw / 375 / 1px);
+  }
+}
+
+:root {
+  /* ---- Шрифты ----
+     Diagramatika Text — интерфейс, тело текста, эйбрау-лейблы ("Выставка").
+     Diagramatika Display — заголовки, крупные числа, даты, пункты меню.
+     Различие не только в засечках/гарнитуре, но и в трекинге: Display
+     всегда получает +2% letter-spacing от своего font-size, Text — normal. */
+  --font-text: "Diagramatika Text", "Diagramatika Text Fallback", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Diagramatika Display", "Diagramatika Display Fallback", "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", Menlo, monospace;
+
+  --tracking-display: 0.02em; /* применять только вместе с --font-display */
+  --tracking-text: normal;
+
+  /* ---- Типографическая шкала (эталонные px @1440, умножать на --ges2-scale) ---- */
+  --text-base: calc(var(--ges2-scale) * 16px);  /* тело, ссылки, кнопки */
+  --text-lg:   calc(var(--ges2-scale) * 18px);  /* эйбрау-лейблы, "Выставка", подписи к карточкам */
+  --display-sm:  calc(var(--ges2-scale) * 20px); /* короткие даты в расписании */
+  --display-md:  calc(var(--ges2-scale) * 28px); /* пункты навигации ("План здания") */
+  --display-lg:  calc(var(--ges2-scale) * 40px); /* счётчики на сегодня ("3 выставки,") */
+  --display-xl:  calc(var(--ges2-scale) * 60px); /* — не встречен отдельно, шаг шкалы */
+  --display-2xl: calc(var(--ges2-scale) * 70px); /* h2 "Сегодня" — крупнейший измеренный заголовок */
+
+  /* ---- Отступы: базовая единица 5px @1440, дальше кратно ---- */
+  --space-1:  calc(var(--ges2-scale) * 5px);
+  --space-2:  calc(var(--ges2-scale) * 10px);
+  --space-4:  calc(var(--ges2-scale) * 20px);
+  --space-6:  calc(var(--ges2-scale) * 30px);
+  --space-10: calc(var(--ges2-scale) * 50px);
+
+  /* ---- Сетка ----
+     На десктопе (1280px вьюпорт) замерено 13 треков ≈79.3px + гаттер
+     ≈17.8px — в эталонных px @1440 это колонка ≈90px (18 отступных единиц)
+     и гаттер 20px (4 единицы). */
+  --grid-columns: 13;
+  --grid-column-w: calc(var(--ges2-scale) * 90px);
+  --grid-gutter: var(--space-4);
+
+  /* ---- Цвет ----
+     Сайт принципиально монохромный: чёрный текст на белом, без теней,
+     без градиентов, border-radius везде 0. Немногочисленные утилитарные
+     цвета (ошибка/интерактив) найдены в бандле, но не используются как
+     "бренд-палитра" — это служебные состояния форм. */
+  --color-ink: #000000;
+  --color-paper: #FFFFFF;
+  --color-muted: #9CA3AF;   /* второстепенный текст / disabled */
+  --color-hint: #C0C1C0;    /* плейсхолдеры */
+  --color-hairline-bg: #EEEEEE;
+  --color-link-utility: #2260C5;  /* найдено в бандле — фокус/интерактивные состояния форм, НЕ основной акцент */
+  --color-error: #D30000;
+
+  /* ---- Границы ----
+     0.5px — не опечатка: сайт реально использует субпиксельные hairline-
+     разделители (retina-эффект) вместо привычного 1px. border-radius не
+     встречен ни на одном обследованном элементе — везде острые углы. */
+  --border-hairline: 0.5px solid var(--color-ink);
+  --radius: 0px;
+}
+
+/* ---- Базовые стили ---- */
+body {
+  margin: 0;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-text);
+  font-size: var(--text-base);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: var(--tracking-text);
+}
+
+h1, h2, h3, .ges2-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: var(--tracking-display);
+  margin: 0;
+}
+
+.ges2-eyebrow {
+  /* "Выставка", "Медиаторский тур" — лейблы типа материала над заголовком карточки */
+  font-family: var(--font-text);
+  font-size: var(--text-lg);
+  letter-spacing: var(--tracking-text);
+}
+
+.ges2-hairline {
+  border: none;
+  border-bottom: var(--border-hairline);
+}
+
+a, button {
+  font-family: inherit;
+  color: inherit;
+  border-radius: var(--radius);
+}
