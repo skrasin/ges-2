@@ -16,7 +16,12 @@ docs/                        Аналитика, источники данных
   calendar-data.json           календарь событий, извлечённый с сайта
   *.xlsx, *.docx               входные и рабочие документы (реестр событий, опрос, CX-план)
 
-design-system/                Дизайн-токены, реконструированные с сайта ges-2.org
+design-system/                Дизайн-токены (с сайта ges-2.org) + шаблон презентации
+  design-system.md             дизайн-система: типографика, цвет, сетка, §9 — презентации
+  tokens.css                   CSS custom properties, готовые к подключению
+  photos/                       13 фото из реальных презентаций ГЭС-2 (без партнёрских логотипов)
+  diagrams/                     3 базовые схемы этажей (без цветных выносок)
+  ges2-presentation-template.pptx  шаблон презентации, собирается build_presentation_template.py
 knowledge-base/                автономная HTML-база знаний для службы работы с посетителями
 event-management/              автономный реестр событий (треки, этапы, RACI)
 surveys/                        HTML-анкета опроса посетителей
@@ -34,6 +39,7 @@ python3 knowledge-base/build_kb.py          # из docs/baza_znaniy/ges2_kb_data
 python3 event-management/build_registry.py  # из docs/ges2_event_pm_template.xlsx
 python3 tools/fetch_calendar.py --from 2026-08-09 --to 2026-12-31 --out docs/calendar-data.json
 python3 tools/build_calendar_xlsx.py        # из docs/calendar-data.json
+python3 design-system/build_presentation_template.py  # из design-system/photos, /diagrams
 ```
 
 Если меняете исходные данные — пересоберите соответствующий инструмент, не редактируйте `index.html`/`.xlsx` напрямую (они перезаписываются при следующей сборке).
