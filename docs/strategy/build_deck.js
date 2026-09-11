@@ -31,6 +31,16 @@ function title(slide, text, opts = {}) {
   });
 }
 
+const IMG = '/home/user/ges-2/docs/strategy/deck-images/';
+
+// Фотография: заполняет рамку с обрезкой, hairline-обводка
+function pic(slide, x, y, w, h, file) {
+  slide.addImage({ path: IMG + file, x, y, w, h, sizing: { type: 'cover', w, h } });
+  slide.addShape(pres.ShapeType.rect, {
+    x, y, w, h, fill: { type: 'none' }, line: { color: INK, width: 0.5 },
+  });
+}
+
 // Плейсхолдер изображения
 function photo(slide, x, y, w, h, caption) {
   slide.addShape(pres.ShapeType.rect, {
@@ -103,7 +113,7 @@ function bullets(slide, items, opts = {}) {
     if (i < st.length - 1) rule(s, ML, y + 1.22, 7.0);
     y += 1.5;
   });
-  photo(s, 8.3, 1.85, 4.33, 4.4, 'Фото: фасад ГЭС-2\nс Болотной набережной');
+  pic(s, 8.3, 1.85, 4.33, 4.4, 'facade.jpg');
   s.addNotes('Три утверждения, задающие рамку. Фото фасада — узнаваемость за секунду.');
 }
 
@@ -134,7 +144,7 @@ function bullets(slide, items, opts = {}) {
     rule(s, ML, y + 0.45, 6.35);
     y += 0.58;
   });
-  photo(s, 7.7, 1.85, 4.93, 4.65, 'Фото: внутренний двор');
+  pic(s, 7.7, 1.85, 4.93, 4.65, 'prospekt.jpg');
   s.addNotes('Восемь направлений. Дальше каждое раскрывается отдельным слайдом.');
 }
 
@@ -178,7 +188,7 @@ function bullets(slide, items, opts = {}) {
 {
   const s = S();
   title(s, 'Как выстраивается взаимодействие');
-  photo(s, ML, 1.85, 5.2, 4.5, 'Фото: закулисье —\nмонтаж выставки или «Своды»');
+  pic(s, ML, 1.85, 5.2, 4.5, 'svody.jpg');
   bullets(s, [
     'Регулярные совместные совещания с продюсерским и коммерческим блоками',
     'Ротация сотрудников бэк-офиса в зал',
@@ -213,7 +223,7 @@ function bullets(slide, items, opts = {}) {
     });
     y += 0.86;
   });
-  photo(s, 7.55, 1.85, 5.08, 4.5, 'Фото: собственный снимок\nс прохода пути — точка трения');
+  pic(s, 7.55, 1.85, 5.08, 4.5, 'flow.jpg');
   s.addNotes('Порядок значим. Фотографию делаем сами: пройти как посетитель и снять две-три реальные точки трения.');
 }
 
@@ -253,7 +263,7 @@ function bullets(slide, items, opts = {}) {
 {
   const s = S();
   title(s, 'Персонал и гостеприимство');
-  photo(s, ML, 1.85, 4.3, 4.5, 'Фото: сотрудник в диалоге\nс посетителем — лицо, не интерьер');
+  pic(s, ML, 1.85, 4.3, 4.5, 'mediation.jpg');
 
   s.addText('Навык', {
     x: 5.55, y: 1.85, w: 7.08, h: 0.35,
@@ -343,7 +353,7 @@ function bullets(slide, items, opts = {}) {
     'Улучшение точек питания',
     'SLA с внешними операторами: питание, клининг, паркинг, билетный сервис',
   ], { x: ML, y: 1.95, w: 5.5, h: 2.4, fontSize: 15 });
-  photo(s, 6.9, 1.85, 5.73, 4.4, 'Фото: кафе или гардероб');
+  pic(s, 6.9, 1.85, 5.73, 4.4, 'platforms.jpg');
   s.addNotes('Качество на стыках с внешними операторами обеспечивается договором, а не просьбами.');
 }
 
@@ -373,7 +383,7 @@ function bullets(slide, items, opts = {}) {
     'Выставки корпоративных коллекций партнёров',
   ], { x: 4.85, y: 2.3, w: 3.9, h: 3.2, fontSize: 13 });
 
-  photo(s, 9.0, 1.85, 3.63, 4.0, 'Фото: магазин ГЭС-2');
+  pic(s, 9.0, 1.85, 3.63, 4.0, 'books.jpg');
 
   rule(s, ML, 6.15, CW);
   s.addText('Принцип отбора — продаём углубление, а не доступ', {
