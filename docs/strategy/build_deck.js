@@ -77,7 +77,7 @@ function bullets(slide, items, opts = {}) {
     x: ML, y: 5.15, w: 9.5, h: 0.4,
     fontFace: FONT, fontSize: 16, color: INK, italic: true, margin: 0, isTextBox: true,
   });
-  s.addText('Сергей Красин · сентябрь 2026', {
+  s.addText('Сентябрь 2026', {
     x: ML, y: 6.55, w: 8, h: 0.3,
     fontFace: FONT, fontSize: 11, color: MUTED, margin: 0, isTextBox: true,
   });
