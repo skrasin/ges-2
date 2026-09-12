@@ -256,7 +256,7 @@ function bullets(slide, items, opts = {}) {
 {
   const s = S();
   title(s, 'Персонал и гостеприимство');
-  pic(s, ML, 1.95, 4.3, 'mediation.jpg');
+  pic(s, ML, 2.74, 4.3, 'mediation.jpg');
 
   s.addText('Навык', {
     x: 5.55, y: 1.95, w: 7.08, h: 0.35,
@@ -304,9 +304,9 @@ function bullets(slide, items, opts = {}) {
       fontFace: FONT, fontSize: 12, color: MUTED, margin: 0, isTextBox: true,
     });
     s.addText(d, {
-      x: x + 0.22, y: 3.9, w: dw - 0.44, h: 1.2,
+      x: x + 0.22, y: 2.66, w: dw - 0.44, h: 1.2,
       fontFace: FONT, fontSize: 14, color: INK, margin: 0, isTextBox: true,
-      lineSpacingMultiple: 1.15, valign: 'bottom',
+      lineSpacingMultiple: 1.15, valign: 'top',
     });
   });
   s.addNotes('Пять артефактов, которые появляются на выходе. Порядок: сначала диагностика, потом документы.');
