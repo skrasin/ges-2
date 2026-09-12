@@ -18,14 +18,22 @@ const IMG = '/home/user/ges-2/docs/strategy/deck-images/';
 const AR = 3 / 2; // все снимки заранее обрезаны ровно под 3:2
 
 pres.defineSlideMaster({ title: 'GES2', background: { color: PAPER } });
-const S = () => pres.addSlide({ masterName: 'GES2' });
 
-// Заголовок слайда: Display - обычное начертание, трекинг +2%
+const TOTAL_SLIDES = 11;
+let PAGE = 0;
+const S = () => { PAGE += 1; return pres.addSlide({ masterName: 'GES2' }); };
+
+// Заголовок слайда + номер справа вверху (титульный номера не получает)
 function title(slide, text, opts = {}) {
   slide.addText(text, {
-    x: ML, y: 0.5, w: CW, h: 0.8,
+    x: ML, y: 0.5, w: 10.0, h: 0.8,
     fontFace: FONT, fontSize: 30, color: INK, charSpacing: 0.6,
     align: 'left', valign: 'top', margin: 0, isTextBox: true, ...opts,
+  });
+  slide.addText(`${PAGE} / ${TOTAL_SLIDES}`, {
+    x: W - MR - 2.0, y: 0.62, w: 2.0, h: 0.3,
+    fontFace: FONT, fontSize: 12, color: MUTED, align: 'right',
+    margin: 0, isTextBox: true,
   });
 }
 
@@ -106,9 +114,9 @@ function bullets(slide, items, opts = {}) {
   const s = S();
   title(s, 'Понимание задачи');
   const st = [
-    'Доверие аудитории - то,\nради чего существует сервис',
-    'Сервис не создаёт доверие,\nон его исполняет и конвертирует',
-    'Периметр - весь путь, от поиска\nинформации до выхода из здания',
+    'Доверие аудитории - то,\nчто поддерживает сервис',
+    'Исполнение сервиса требует\nединых стандартов и дисциплины',
+    'Постепенный переход к модели\nчастичной окупаемости находится в фокусе',
   ];
   let y = 1.95;
   st.forEach((t, i) => {
@@ -129,7 +137,7 @@ function bullets(slide, items, opts = {}) {
   const s = S();
   title(s, 'Содержание');
   const items = [
-    'Горизонтальные связи',
+    'Как выстраивается взаимодействие',
     'Диагностика',
     'Обратная связь и метрики',
     'Персонал и гостеприимство',
@@ -226,7 +234,7 @@ function bullets(slide, items, opts = {}) {
   rule(s, ML, 5.45, CW);
   const extras = [
     'Журнал обращений и отзывы\nрегулярный разбор',
-    'Тайный визит\nраз в год',
+    'Тайный визит\nнесколько раз в год',
     'Бэклог запросов\nс оценкой стоимости',
   ];
   const ew = 3.71, eg = 0.4;
