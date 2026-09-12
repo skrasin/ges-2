@@ -93,14 +93,10 @@ const TOTAL = GROUPS.reduce((n, g) => n + g[1].length, 0);
     x: ML, y: 0.6, w: CW, h: 0.3,
     fontFace: FONT, fontSize: 12, color: MUTED, margin: 0, isTextBox: true,
   });
-  s.addText('Приложение.\nПолный список тезисов', {
-    x: ML, y: 2.2, w: 10.5, h: 1.9,
+  s.addText('Приложение', {
+    x: ML, y: 2.2, w: 10.5, h: 1.0,
     fontFace: FONT, fontSize: 38, color: INK, charSpacing: 0.76,
     lineSpacingMultiple: 1.1, margin: 0, isTextBox: true,
-  });
-  s.addText('К презентации «Предложение по улучшению направления сервиса и клиентского опыта ГЭС-2»', {
-    x: ML, y: 4.35, w: 10.0, h: 0.4,
-    fontFace: FONT, fontSize: 15, color: INK, margin: 0, isTextBox: true,
   });
   s.addShape(pres.ShapeType.line, { x: ML, y: 5.1, w: CW, h: 0, line: { color: HAIR, width: 0.75 } });
   s.addText(`${TOTAL} пунктов в восьми группах`, {
